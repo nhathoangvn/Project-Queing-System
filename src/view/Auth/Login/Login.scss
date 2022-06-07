@@ -1,0 +1,62 @@
+.login {
+  border-radius: 16px;
+  height: 810px;
+  width: 1440px;
+  margin: 0;
+  padding: 0;
+  background-color: white;
+  .wrapper {
+    .login-wrapper {
+      height: 810px;
+      border-top-left-radius: 16px;
+      border-bottom-left-radius: 16px;
+      background-color: #f7f7f7;
+      .logo {
+        padding-top: 12%;
+      }
+      .login-container {
+        padding: 12% 0;
+        .ant-form-item-label label {
+          font-size: 18px;
+          line-height: 27px;
+          font-weight: 550;
+          color: #000000;
+        }
+        .input {
+          border-radius: 8px;
+          height: 44px;
+          width: 400px;
+        }
+        .forgot-password {
+          font-weight: 550 !important;
+          font-size: 14px;
+          line-height: 21px;
+          color: #e73f3f !important;
+        }
+        .btn-login {
+          .ant-btn-primary:focus {
+            background-color: #ff9138;
+          }
+          color: white;
+          width: 162px;
+          height: 40px;
+          background: #ff9138;
+          box-shadow: 0px 0px 6px #e7e9f2;
+          border-radius: 8px;
+        }
+      }
+    }
+    .banner {
+      .banner-wrapper {
+        height: 810px;
+        .img-banner {
+          position: absolute;
+          width: 605px;
+          height: 614.06px;
+          left: 80px;
+          top: 112.94px;
+        }
+      }
+    }
+  }
+}
