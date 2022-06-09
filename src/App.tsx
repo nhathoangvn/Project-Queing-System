@@ -1,12 +1,11 @@
-import { Button } from "antd";
-import { getAuth } from "firebase/auth";
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import PrivatePage from "./routers/components/PrivatePage";
-import Login from "./view/Auth/Login";
 import HomePage from "./pages/HomePage";
+import PrivatePage from "./routers/components/PrivatePage";
 import ChangePassword from "./view/Auth/ChangePassword";
+import Login from "./view/Auth/Login";
+
 function App() {
   return (
     <div className="App">

@@ -1,13 +1,23 @@
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 import React, { useEffect, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { auth } from "../../config/firebase";
 interface IAuthRouteProps {
-  children: JSX.Element;
+  children: React.ReactNode;
 }
 const PrivatePage: React.FC<IAuthRouteProps> = ({ children }) => {
-  if (!auth.currentUser) {
-    return <Navigate to="/login" replace />;
-  } else return <>{children}</>;
+  const [user, setUser] = useState<any>({});
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((firebaseUser) => {
+      if (firebaseUser) {
+        setUser(firebaseUser);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
+  if (!user) {
+    return <Navigate to="/login" />;
+  }
+
+  return <>{children}</>;
 };
 export default PrivatePage;
