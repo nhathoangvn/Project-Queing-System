@@ -1,0 +1,82 @@
+@import "../../../../shared/assets/scss/variable";
+.header {
+  display: flex;
+  height: 90px;
+  width: 1240px;
+  border-top-right-radius: 16px;
+  align-items: center;
+  .header-breadcrumb {
+    padding: 0 25px;
+    .ant-breadcrumb-separator {
+      font-size: 16px;
+      padding: 0 8px 0 8px;
+    }
+    .ant-breadcrumb {
+      color: $color-txt;
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 30px;
+    }
+    .ant-breadcrumb li:last-child {
+      color: $primary-color-txt !important;
+    }
+    .ant-breadcrumb li:last-child a {
+      color: $primary-color-txt !important;
+    }
+  }
+  .header-bg {
+    background-color: #ffffff;
+  }
+  .header-user-information {
+    border-top-right-radius: 16px;
+    height: 90px;
+    width: 100%;
+    .header-user-notification {
+      height: 90px;
+      padding-right: 20px;
+      .around-notification {
+        cursor: pointer;
+        color: $primary-color-txt;
+        height: 32px;
+        width: 32px;
+        border-radius: 32px;
+        background: $primary-color-btn-hover;
+      }
+      .around-notification-checked {
+        cursor: pointer;
+        color: #fff;
+        height: 32px;
+        width: 32px;
+        border-radius: 32px;
+        background: $primary-color-btn;
+      }
+    }
+    .header-user-avatar {
+      height: 90px;
+      display: flex;
+      align-items: center;
+      color: $color-txt;
+      .header-user-info {
+        padding-top: 12px;
+        padding-left: 15px;
+        cursor: pointer;
+        span {
+          font-family: "Nunito";
+          font-style: normal;
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 18px;
+          color: #7e7d88;
+        }
+        p {
+          font-family: "Nunito";
+          font-style: normal;
+          font-weight: 700;
+          font-size: 16px;
+          line-height: 24px;
+          color: #535261;
+        }
+      }
+    }
+  }
+}

@@ -3,13 +3,13 @@ import { Col, Form, Input, Row } from "antd";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import React, { ChangeEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { auth } from "../../../config/firebase";
 import banner from "../../../shared/assets/images/banner.png";
 import logoAlta from "../../../shared/assets/images/logoAlta.png";
 import CButton from "../../../shared/components/Button";
 import "./Login.scss";
 interface ILoginPageProps {}
 const Login: React.FC<ILoginPageProps> = (props) => {
-  const auth = getAuth();
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -23,7 +23,7 @@ const Login: React.FC<ILoginPageProps> = (props) => {
           .then((response) => {
             if (response) {
               setCheckAuth(true);
-              navigate("/");
+              navigate("/dashboard");
             }
           })
           .catch((error) => {

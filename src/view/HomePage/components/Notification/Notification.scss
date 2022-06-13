@@ -1,0 +1,62 @@
+@import "../../../../shared/assets/scss/variable";
+.menu-notification {
+  height: 526px;
+  width: 360px;
+  border-radius: 10px;
+  box-shadow: $box-shadow;
+
+  .menu-notification-header {
+    height: 48px;
+    width: 100%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: $primary-color-btn;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 30px;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+  }
+  .menu-notification-content {
+    overflow-x: hidden;
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      width: 4px;
+      height: 340px;
+      right: 4px;
+      top: 86px;
+      border-radius: 43px;
+    }
+    &::-webkit-scrollbar-track {
+      border-radius: 10px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: #ffc89b;
+      border-radius: 16px;
+    }
+    height: 476px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+  .menu-notification-popup {
+    .menu-notification-popup-item {
+      padding-left: 24px;
+      height: 80px;
+      .notify {
+        .notify-title {
+          font-weight: 700;
+          font-size: 16px;
+          line-height: 24px;
+          color: #bf5805;
+        }
+        .notify-description {
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 24px;
+          color: #535261;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,75 @@
+.details-device {
+  .details-device-title {
+    margin: 24px 0 16px 24px;
+    p {
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 36px;
+      color: #ff7506;
+    }
+  }
+  .details-device-form-action {
+    cursor: pointer;
+    width: 80px;
+    height: 94px;
+    background: #fff2e7;
+    // box-shadow: 0px 0px 6px #e7e9f2;
+    border-radius: 8px 0px 0px 8px;
+    .action-icon {
+      margin-top: 14px;
+      text-align: center;
+    }
+    .action-title {
+      p {
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 19px;
+        text-align: center;
+        color: #ff7506;
+      }
+    }
+  }
+  .details-device-wrapper {
+    display: flex;
+    justify-content: space-between;
+    .details-device-container {
+      width: 1112px;
+      height: 604px;
+      background: #ffffff;
+      box-shadow: 2px 2px 8px rgba(232, 239, 244, 0.8);
+      border-radius: 16px;
+      margin: 0 0 0 24px;
+      .details-device-content-title {
+        margin: 0 0 12px 24px;
+        padding-top: 16px;
+        p {
+          font-weight: 700;
+          font-size: 20px;
+          line-height: 30px;
+          color: #ff7506;
+        }
+      }
+      .details-device-form-container {
+        padding: 6px 0 0 24px;
+        .details-device-form-item {
+          .label {
+            p {
+              font-weight: 600;
+              font-size: 16px;
+              line-height: 24px;
+              color: #282739;
+            }
+          }
+          .init-value {
+            p {
+              font-weight: 400;
+              font-size: 16px;
+              line-height: 24px;
+              color: #535261;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,146 @@
+[
+  {
+    "id": "KOI_01",
+    "deviceName": "Kiosk",
+    "ipAddress": "192.168.1.0",
+    "statusWork": true,
+    "statusConection": true,
+    "service": "Khám tim mạch, Khám sản - Phụ khoa, Khám răng hàm mặt, Khám tai mũi họng, Khám hô hấp, Khám tổng quát"
+  },
+  {
+    "id": "KOI_01",
+    "deviceName": "Kiosk",
+    "ipAddress": "192.168.1.0",
+    "statusWork": false,
+    "statusConection": false,
+    "service": "Khám tim mạch, Khám sản - Phụ khoa, Khám răng hàm mặt, Khám tai mũi họng, Khám hô hấp, Khám tổng quát"
+  },
+  {
+    "id": "KOI_01",
+    "deviceName": "Kiosk",
+    "ipAddress": "192.168.1.0",
+    "statusWork": true,
+    "statusConection": false,
+    "service": "Khám tim mạch, Khám sản - Phụ khoa, Khám răng hàm mặt, Khám tai mũi họng, Khám hô hấp, Khám tổng quát"
+  },
+  {
+    "id": "KOI_01",
+    "deviceName": "Kiosk",
+    "ipAddress": "192.168.1.0",
+    "statusWork": false,
+    "statusConection": true,
+    "service": "Khám tim mạch, Khám sản - Phụ khoa, Khám răng hàm mặt, Khám tai mũi họng, Khám hô hấp, Khám tổng quát"
+  },
+  {
+    "id": "KOI_01",
+    "deviceName": "Kiosk",
+    "ipAddress": "192.168.1.0",
+    "statusWork": true,
+    "statusConection": true,
+    "service": "Khám tim mạch, Khám sản - Phụ khoa, Khám răng hàm mặt, Khám tai mũi họng, Khám hô hấp, Khám tổng quát"
+  },
+  {
+    "id": "KOI_01",
+    "deviceName": "Kiosk",
+    "ipAddress": "192.168.1.0",
+    "statusWork": true,
+    "statusConection": false,
+    "service": "Khám tim mạch, Khám sản - Phụ khoa, Khám răng hàm mặt, Khám tai mũi họng, Khám hô hấp, Khám tổng quát"
+  },
+  {
+    "id": "KOI_01",
+    "deviceName": "Kiosk",
+    "ipAddress": "192.168.1.0",
+    "statusWork": false,
+    "statusConection": false,
+    "service": "Khám tim mạch, Khám sản - Phụ khoa, Khám răng hàm mặt, Khám tai mũi họng, Khám hô hấp, Khám tổng quát"
+  },
+  {
+    "id": "KOI_01",
+    "deviceName": "Kiosk",
+    "ipAddress": "192.168.1.0",
+    "statusWork": true,
+    "statusConection": false,
+    "service": "Khám tim mạch, Khám sản - Phụ khoa, Khám răng hàm mặt, Khám tai mũi họng, Khám hô hấp, Khám tổng quát"
+  },
+  {
+    "id": "KOI_01",
+    "deviceName": "Kiosk",
+    "ipAddress": "192.168.1.0",
+    "statusWork": false,
+    "statusConection": false,
+    "service": "Khám tim mạch, Khám sản - Phụ khoa, Khám răng hàm mặt, Khám tai mũi họng, Khám hô hấp, Khám tổng quát"
+  },
+  {
+    "id": "KOI_01",
+    "deviceName": "Kiosk",
+    "ipAddress": "192.168.1.0",
+    "statusWork": true,
+    "statusConection": false,
+    "service": "Khám tim mạch, Khám sản - Phụ khoa, Khám răng hàm mặt, Khám tai mũi họng, Khám hô hấp, Khám tổng quát"
+  },
+  {
+    "id": "KOI_01",
+    "deviceName": "Kiosk",
+    "ipAddress": "192.168.1.0",
+    "statusWork": true,
+    "statusConection": false,
+    "service": "Khám tim mạch, Khám sản - Phụ khoa, Khám răng hàm mặt, Khám tai mũi họng, Khám hô hấp, Khám tổng quát"
+  },
+  {
+    "id": "KOI_01",
+    "deviceName": "Kiosk",
+    "ipAddress": "192.168.1.0",
+    "statusWork": true,
+    "statusConection": true,
+    "service": "Khám tim mạch, Khám sản - Phụ khoa, Khám răng hàm mặt, Khám tai mũi họng, Khám hô hấp, Khám tổng quát"
+  },
+  {
+    "id": "KOI_01",
+    "deviceName": "Kiosk",
+    "ipAddress": "192.168.1.0",
+    "statusWork": false,
+    "statusConection": false,
+    "service": "Khám tim mạch, Khám sản - Phụ khoa, Khám răng hàm mặt, Khám tai mũi họng, Khám hô hấp, Khám tổng quát"
+  },
+  {
+    "id": "KOI_01",
+    "deviceName": "Kiosk",
+    "ipAddress": "192.168.1.0",
+    "statusWork": true,
+    "statusConection": false,
+    "service": "Khám tim mạch, Khám sản - Phụ khoa, Khám răng hàm mặt, Khám tai mũi họng, Khám hô hấp, Khám tổng quát"
+  },
+  {
+    "id": "KOI_01",
+    "deviceName": "Kiosk",
+    "ipAddress": "192.168.1.0",
+    "statusWork": false,
+    "statusConection": true,
+    "service": "Khám tim mạch, Khám sản - Phụ khoa, Khám răng hàm mặt, Khám tai mũi họng, Khám hô hấp, Khám tổng quát"
+  },
+  {
+    "id": "KOI_01",
+    "deviceName": "Kiosk",
+    "ipAddress": "192.168.1.0",
+    "statusWork": true,
+    "statusConection": true,
+    "service": "Khám tim mạch, Khám sản - Phụ khoa, Khám răng hàm mặt, Khám tai mũi họng, Khám hô hấp, Khám tổng quát"
+  },
+  {
+    "id": "KOI_01",
+    "deviceName": "Kiosk",
+    "ipAddress": "192.168.1.0",
+    "statusWork": true,
+    "statusConection": false,
+    "service": "Khám tim mạch, Khám sản - Phụ khoa, Khám răng hàm mặt, Khám tai mũi họng, Khám hô hấp, Khám tổng quát"
+  },
+  {
+    "id": "KOI_01",
+    "deviceName": "Kiosk",
+    "ipAddress": "192.168.1.0",
+    "statusWork": true,
+    "statusConection": false,
+    "service": "Khám tim mạch, Khám sản - Phụ khoa, Khám răng hàm mặt, Khám tai mũi họng, Khám hô hấp, Khám tổng quát"
+  }
+]
