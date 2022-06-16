@@ -1,13 +1,4 @@
-import {
-  Avatar,
-  Breadcrumb,
-  Button,
-  Col,
-  Dropdown,
-  Menu,
-  Row,
-  Typography,
-} from "antd";
+import { Avatar, Breadcrumb, Col, Dropdown, Row } from "antd";
 import React, { useState } from "react";
 import { BsFillBellFill } from "react-icons/bs";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -50,8 +41,28 @@ const Header: React.FC = (props) => {
       title: ["Dịch vụ", "Danh sách dịch vụ"],
     },
     {
+      pathname: "/service/create",
+      title: ["Dịch vụ", "Danh sách dịch vụ", "Thêm dịch vụ"],
+    },
+    {
+      pathname: "/service/details",
+      title: ["Dịch vụ", "Danh sách dịch vụ", "Chi tiết"],
+    },
+    {
+      pathname: "/service/update",
+      title: ["Dịch vụ", "Danh sách dịch vụ", "Chi tiết", "Cập nhật"],
+    },
+    {
       pathname: "/provide-number",
       title: ["Cấp số", "Danh sách cấp số"],
+    },
+    {
+      pathname: "/provide-number/create",
+      title: ["Cấp số", "Danh sách cấp số", "Cấp số"],
+    },
+    {
+      pathname: "/provide-number/details",
+      title: ["Cấp số", "Danh sách cấp số", "Chi tiết"],
     },
     {
       pathname: "/report",
@@ -60,6 +71,14 @@ const Header: React.FC = (props) => {
     {
       pathname: "/manage-role",
       title: ["Cài đặt hệ thống", "Quản lý vai trò"],
+    },
+    {
+      pathname: "/manage-role/create",
+      title: ["Cài đặt hệ thống", "Quản lý vai trò", "Thêm vai trò"],
+    },
+    {
+      pathname: "/manage-role/update",
+      title: ["Cài đặt hệ thống", "Quản lý vai trò", "Thêm vai trò"],
     },
     {
       pathname: "/manage-account",

@@ -1,5 +1,4 @@
-import { Avatar, Col, Form, Input, Row, Typography } from "antd";
-import React, { ChangeEvent } from "react";
+import { Avatar, Col, Form, Input, Row } from "antd";
 import me from "../../shared/assets/images/me.png";
 import "./UserInformataion.scss";
 interface IUserInfo {

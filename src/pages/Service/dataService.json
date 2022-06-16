@@ -1,0 +1,110 @@
+[
+  {
+    "id": "KIO_01",
+    "serviceName": "Kiosk",
+    "description": "Mô tả trạng thái hoạt động",
+    "statusWork": false
+  },
+  {
+    "id": "KIO_01",
+    "serviceName": "Kiosk",
+    "description": "Mô tả trạng thái hoạt động",
+    "statusWork": true
+  },
+  {
+    "id": "KIO_01",
+    "serviceName": "Kiosk",
+    "description": "Mô tả trạng thái hoạt động",
+    "statusWork": true
+  },
+  {
+    "id": "KIO_01",
+    "serviceName": "Kiosk",
+    "description": "Mô tả trạng thái hoạt động",
+    "statusWork": false
+  },
+  {
+    "id": "KIO_01",
+    "serviceName": "Kiosk",
+    "description": "Mô tả trạng thái hoạt động",
+    "statusWork": false
+  },
+  {
+    "id": "KIO_01",
+    "serviceName": "Kiosk",
+    "description": "Mô tả trạng thái hoạt động",
+    "statusWork": true
+  },
+  {
+    "id": "KIO_01",
+    "serviceName": "Kiosk",
+    "description": "Mô tả trạng thái hoạt động",
+    "statusWork": true
+  },
+  {
+    "id": "KIO_01",
+    "serviceName": "Kiosk",
+    "description": "Mô tả trạng thái hoạt động",
+    "statusWork": false
+  },
+  {
+    "id": "KIO_01",
+    "serviceName": "Kiosk",
+    "description": "Mô tả trạng thái hoạt động",
+    "statusWork": true
+  },
+  {
+    "id": "KIO_01",
+    "serviceName": "Kiosk",
+    "description": "Mô tả trạng thái hoạt động",
+    "statusWork": true
+  },
+  {
+    "id": "KIO_01",
+    "serviceName": "Kiosk",
+    "description": "Mô tả trạng thái hoạt động",
+    "statusWork": true
+  },
+  {
+    "id": "KIO_01",
+    "serviceName": "Kiosk",
+    "description": "Mô tả trạng thái hoạt động",
+    "statusWork": true
+  },
+  {
+    "id": "KIO_01",
+    "serviceName": "Kiosk",
+    "description": "Mô tả trạng thái hoạt động",
+    "statusWork": true
+  },
+  {
+    "id": "KIO_01",
+    "serviceName": "Kiosk",
+    "description": "Mô tả trạng thái hoạt động",
+    "statusWork": true
+  },
+  {
+    "id": "KIO_01",
+    "serviceName": "Kiosk",
+    "description": "Mô tả trạng thái hoạt động",
+    "statusWork": true
+  },
+  {
+    "id": "KIO_01",
+    "serviceName": "Kiosk",
+    "description": "Mô tả trạng thái hoạt động",
+    "statusWork": true
+  },
+  {
+    "id": "KIO_01",
+    "serviceName": "Kiosk",
+    "description": "Mô tả trạng thái hoạt động",
+    "statusWork": true
+  },
+  {
+    "id": "KIO_02",
+    "serviceName": "Kiosk",
+    "description": "Mô tả trạng thái hoạt động",
+    "statusWork": true
+  }
+]

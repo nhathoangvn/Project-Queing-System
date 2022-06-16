@@ -1,0 +1,118 @@
+@import "../../shared/assets/scss/variable";
+.create-role {
+  .create-role-wrapper {
+    .create-role-container {
+      .btn-add {
+        width: 147px;
+        height: 48px;
+        background: #ff9138;
+        box-shadow: 0px 0px 6px #e7e9f2;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 22px;
+        color: #ffffff;
+      }
+      .btn-cancel {
+        width: 147px;
+        height: 48px;
+        background: #fff2e7;
+        border: 1.5px solid #ff9138;
+        box-shadow: 0px 0px 6px #e7e9f2;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 22px;
+        color: #ff9138;
+      }
+      .create-role-title {
+        margin: 24px 0 32px 24px;
+        span {
+          font-weight: 700;
+          font-size: 24px;
+          line-height: 36px;
+          color: #ff7506;
+        }
+      }
+      .create-role-content {
+        width: 1192px;
+        height: 534px;
+        background: #ffffff;
+        box-shadow: 2px 2px 8px rgba(232, 239, 244, 0.8);
+        border-radius: 16px;
+        margin-left: 24px;
+        .create-role-content-title {
+          span {
+            font-weight: 700;
+            font-size: 20px;
+            line-height: 30px;
+            color: #ff7506;
+          }
+        }
+        .create-role-content-form {
+          display: flex;
+          .create-role-content-form-left {
+            margin: 12px 24px 0 24px;
+            .create-role-content-form-item-left {
+              .create-role-content-form-item-left-input {
+                width: 560px;
+                height: 44px;
+                background: #ffffff;
+                border: 1.5px solid #d4d4d7;
+                border-radius: 8px;
+              }
+              .create-role-content-form-item-left-input-area {
+                width: 560px;
+                height: 160px;
+                background: #ffffff;
+                border: 1.5px solid #d4d4d7;
+                border-radius: 8px;
+              }
+            }
+          }
+          .create-role-content-form-right {
+            margin-top: 12px;
+            .create-role-content-form-right-title {
+              margin-bottom: 8px;
+              span {
+                font-weight: 600;
+                font-size: 16px;
+                line-height: 24px;
+                color: #282739;
+              }
+            }
+            .create-role-content-form-right-form {
+              width: 560px;
+              height: 420px;
+              background: #fff2e7;
+              border-radius: 8px;
+              .create-role-content-form-right-title-item {
+                span {
+                  font-weight: 700;
+                  font-size: 20px;
+                  line-height: 30px;
+                  color: #ff7506;
+                }
+              }
+              .create-role-content-form-item {
+                label.ant-checkbox-wrapper {
+                  font-weight: 600;
+                  font-size: 17px;
+                  line-height: 24px;
+                  color: #535261;
+                  padding-bottom: 6px;
+                }
+                .ant-checkbox-inner {
+                  border: 1.5px solid #4277ff;
+                  border-radius: 4px;
+                  height: 20px;
+                  width: 20px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

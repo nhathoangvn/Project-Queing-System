@@ -1,22 +1,30 @@
-import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import HomePage from "./view/HomePage";
-import ChangePassword from "./view/Auth/ChangePassword";
-import Login from "./view/Auth/Login";
+import CreateDevice from "./pages/CreateDevice/CreateDevice";
+import CreateProvideNumber from "./pages/CreateProvideNumber/CreateProvideNumber";
+import CreateRole from "./pages/CreateRole/CreateRole";
+import CreateService from "./pages/CreateService/CreateService";
 import Dashboard from "./pages/Dashboard/Dashboard";
+import DetailsDevice from "./pages/DetailsDevice/DetailsDevice";
+import DetailsProvideNumber from "./pages/DetailsProvideNumber/DetailsProvideNumber";
+import DetailsService from "./pages/DetailsService/DetailsService";
+import DeviceOutlet from "./pages/Device";
 import Device from "./pages/Device/Device";
-import Report from "./pages/Report/Report";
-import Service from "./pages/Service/Service";
-import ProvideNumber from "./pages/ProvideNumber/ProvideNumber";
+import DinaryUser from "./pages/DinaryUser/DinaryUser";
 import ManageRole from "./pages/ManageRole/ManageRole";
 import ManageAccount from "./pages/ManameAccount/ManageAccount";
-import DinaryUser from "./pages/DinaryUser/DinaryUser";
-import UserInformataion from "./pages/UserInformation/UserInformataion";
-import DeviceOutlet from "./pages/Device";
-import CreateDevice from "./pages/CreateDevice/CreateDevice";
-import DetailsDevice from "./pages/DetailsDevice/DetailsDevice";
+import ProviderNumberOutlet from "./pages/ProvideNumber";
+import ProvideNumber from "./pages/ProvideNumber/ProvideNumber";
+import Report from "./pages/Report/Report";
+import SeriviceOutlet from "./pages/Service";
+import Service from "./pages/Service/Service";
 import UpdateDevice from "./pages/UpdateDevice/UpdateDevice";
+import UpdateManageRole from "./pages/UpdateManageRole/UpdateManageRole";
+import UpdateService from "./pages/UpdateService/UpdateService";
+import UserInformataion from "./pages/UserInformation/UserInformataion";
+import ChangePassword from "./view/Auth/ChangePassword";
+import Login from "./view/Auth/Login";
+import HomePage from "./view/HomePage";
 
 function App() {
   return (
@@ -32,9 +40,28 @@ function App() {
               <Route path="/device/update" element={<UpdateDevice />} />
             </Route>
             <Route path="/report" element={<Report />} />
-            <Route path="/service" element={<Service />} />
-            <Route path="/provide-number" element={<ProvideNumber />} />
+            <Route path="/service" element={<SeriviceOutlet />}>
+              <Route path="/service" element={<Service />} />
+              <Route path="/service/create" element={<CreateService />} />
+              <Route path="/service/details" element={<DetailsService />} />
+              <Route path="/service/update" element={<UpdateService />} />
+            </Route>
+            <Route path="/provide-number" element={<ProviderNumberOutlet />}>
+              <Route path="/provide-number" element={<ProvideNumber />} />
+              <Route
+                path="/provide-number/create"
+                element={<CreateProvideNumber />}
+              />
+              <Route
+                path="/provide-number/details"
+                element={<DetailsProvideNumber />}
+              />
+            </Route>
+
             <Route path="/manage-role" element={<ManageRole />} />
+            <Route path="/manage-role/create" element={<CreateRole />} />
+            <Route path="/manage-role/update" element={<UpdateManageRole />} />
+
             <Route path="/manage-account" element={<ManageAccount />} />
             <Route path="/dinary-user" element={<DinaryUser />} />
             <Route path="/me" element={<UserInformataion />} />

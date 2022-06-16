@@ -7,7 +7,7 @@ import {
   AiFillPlusSquare,
 } from "react-icons/ai";
 import { BiSearch } from "react-icons/bi";
-import { BsFillPlusSquareFill } from "react-icons/bs";
+import { BsFillPlusSquareFill, BsPlusSquareFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import dataThietBi from "./dataDevice.json";
 import "./Device.scss";
@@ -105,7 +105,7 @@ export default function Device() {
       title: "",
       dataIndex: "id",
       key: "id",
-      width: "10%",
+      width: 125,
       render: (id: string) => (
         <Row justify="center" align="middle">
           <span
@@ -122,7 +122,7 @@ export default function Device() {
       title: "",
       dataIndex: "id",
       key: "id",
-      width: "10%",
+      width: 125,
       render: (id: string) => (
         <Row justify="center" align="middle">
           <span
@@ -159,7 +159,9 @@ export default function Device() {
             }}
           >
             <Col span={7}>
-              <span>Trạng thái hoạt động</span>
+              <div className="label">
+                <span>Trạng thái hoạt động</span>
+              </div>
               <Select
                 size="large"
                 defaultValue="tatCa"
@@ -173,7 +175,9 @@ export default function Device() {
               </Select>
             </Col>
             <Col span={7}>
-              <span>Trạng thái kết nối</span>
+              <div className="label">
+                <span>Trạng thái kết nối</span>
+              </div>
               <Select
                 size="large"
                 defaultValue="tatCa"
@@ -184,8 +188,10 @@ export default function Device() {
                 <Select.Option value="matKetNoi">Mất kết nối</Select.Option>
               </Select>
             </Col>
-            <Col span={7} offset={3}>
-              <span>Từ khoá</span>
+            <Col span={7} offset={3} style={{ paddingLeft: "35px" }}>
+              <div className="label">
+                <span>Từ khoá</span>
+              </div>
               <Input
                 placeholder="Nhập từ khoá"
                 suffix={<BiSearch size={20} />}
@@ -194,30 +200,43 @@ export default function Device() {
             </Col>
           </Row>
         </div>
-        <div style={{ paddingLeft: "24px" }} className="thietBi__content-table">
-          <Table
-            style={{ height: "490px", width: "1112px" }}
-            columns={columnDevice}
-            dataSource={dataThietBi}
-            pagination={{ pageSize: 9, itemRender: itemPagination }}
-          />
+        <div
+          style={{
+            display: "flex",
+          }}
+        >
+          <div
+            style={{ marginLeft: "24px" }}
+            className="thietBi__content-table"
+          >
+            <Table
+              style={{ height: "490px", width: "1112px" }}
+              columns={columnDevice}
+              dataSource={dataThietBi}
+              pagination={{ pageSize: 9, itemRender: itemPagination }}
+            />
+          </div>
+          <div
+            className="service-form-right-container"
+            style={{ marginLeft: "21px" }}
+          >
+            <Row
+              style={{ cursor: "pointer" }}
+              justify="center"
+              align="middle"
+              className="service-form-right-container"
+              onClick={() => navigate("/service/create")}
+            >
+              <div className="icon">
+                <BsPlusSquareFill size={20} color="#ff9138" />
+              </div>
+              <div className="action-title">
+                <p>Thêm dịch vụ</p>
+              </div>
+            </Row>
+          </div>
         </div>
       </div>
-      <Row
-        justify="center"
-        align="middle"
-        className="device-add"
-        onClick={() => navigate("/device/create")}
-      >
-        <BsFillPlusSquareFill
-          style={{ paddingTop: "12px" }}
-          color="#FF9138"
-          size={28}
-        />
-        <div className="text">
-          <p>Thêm thiết bị</p>
-        </div>
-      </Row>
     </div>
   );
 }

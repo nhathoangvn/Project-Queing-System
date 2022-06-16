@@ -1,14 +1,13 @@
-import { Button, Col, Menu, Row } from "antd";
-import React from "react";
-import { MdOutlineDashboard, MdMoreVert } from "react-icons/md";
-import { HiOutlineDesktopComputer } from "react-icons/hi";
-import { RiWechatLine, RiSettingsLine } from "react-icons/ri";
-import { FiLayers, FiLogOut } from "react-icons/fi";
+import { Menu, Row } from "antd";
 import { BsClipboardData } from "react-icons/bs";
-import logo from "../../shared/assets/images/logoAltaMain.png";
-import "./HomePage.scss";
+import { FiLayers, FiLogOut } from "react-icons/fi";
+import { HiOutlineDesktopComputer } from "react-icons/hi";
+import { MdMoreVert, MdOutlineDashboard } from "react-icons/md";
+import { RiSettingsLine, RiWechatLine } from "react-icons/ri";
 import { Outlet, useNavigate } from "react-router-dom";
+import logo from "../../shared/assets/images/logoAltaMain.png";
 import Header from "./components/Header";
+import "./HomePage.scss";
 export default function HomePage() {
   const navigate = useNavigate();
   return (
@@ -61,15 +60,11 @@ export default function HomePage() {
               Cấp số
             </Menu.Item>
             <Menu.Item
+              onClick={() => {
+                navigate("/report");
+              }}
               key="report"
-              icon={
-                <BsClipboardData
-                  size={20}
-                  onClick={() => {
-                    navigate("/report");
-                  }}
-                />
-              }
+              icon={<BsClipboardData size={20} />}
             >
               Báo cáo
             </Menu.Item>
