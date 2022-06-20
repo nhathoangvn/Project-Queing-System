@@ -1,0 +1,36 @@
+.dinary-user {
+  .dinary-user-wrapper {
+    .dinary-user-container {
+      .dinary-user-filter-form {
+        width: 1112px;
+        margin-left: 24px;
+        display: flex;
+        justify-content: space-between;
+        .select-option-date {
+          display: flex;
+          align-items: center;
+          .ant-picker-suffix {
+            color: #ff7506;
+          }
+        }
+        .filter-input {
+          width: 240px;
+          height: 44px;
+          background: #ffffff;
+          border: 1.5px solid #d4d4d7;
+          border-radius: 8px;
+        }
+        span {
+          font-weight: 600;
+          font-size: 16px;
+          line-height: 24px;
+          color: #282739;
+        }
+      }
+    }
+    .dinary-user-content-table {
+      width: 1112px;
+      margin: 16px 0 0 24px;
+    }
+  }
+}

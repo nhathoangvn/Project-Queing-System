@@ -1,10 +1,26 @@
 import { Col, Row } from "antd";
-import React from "react";
+import { useEffect } from "react";
 import { FaPenSquare } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { bindActionCreators } from "redux";
+import { state, thietBiCreator } from "../../redux";
 import "./DetailsDevice.scss";
+type MyParams = {
+  deviceID: string;
+};
+
 export default function DetailsDevice() {
   const navigate = useNavigate();
+  const { deviceID } = useParams<keyof MyParams>() as MyParams;
+  const dispatch = useDispatch();
+  const { selectedItem } = bindActionCreators(thietBiCreator, dispatch);
+  const { thietBiInfo } = useSelector((state: state) => state.thietbi);
+  const { taiKhoanLogin } = useSelector((state: state) => state.taikhoan);
+  useEffect(() => {
+    selectedItem(deviceID);
+  }, []);
+
   return (
     <div className="details-device">
       <div className="details-device-title">
@@ -24,7 +40,7 @@ export default function DetailsDevice() {
                       <p>Mã thiết bị:</p>
                     </Col>
                     <Col span={12} className="init-value">
-                      <p>KIO_01</p>
+                      <p>{thietBiInfo.idDevice}</p>
                     </Col>
                   </Row>
                 </Col>
@@ -34,7 +50,7 @@ export default function DetailsDevice() {
                       <p>Loại thiết bị:</p>
                     </Col>
                     <Col span={12} className="init-value">
-                      <p>Kiosk</p>
+                      <p>{thietBiInfo.deviceName}</p>
                     </Col>
                   </Row>
                 </Col>
@@ -44,7 +60,7 @@ export default function DetailsDevice() {
                       <p>Tên thiết bị:</p>
                     </Col>
                     <Col span={12} className="init-value">
-                      <p>Kiosk</p>
+                      <p>{thietBiInfo.deviceName}</p>
                     </Col>
                   </Row>
                 </Col>
@@ -54,7 +70,7 @@ export default function DetailsDevice() {
                       <p>Tên đăng nhập:</p>
                     </Col>
                     <Col span={12} className="init-value">
-                      <p>nhathoangvn112</p>
+                      <p>{taiKhoanLogin[0].tendangnhap}</p>
                     </Col>
                   </Row>
                 </Col>
@@ -64,7 +80,7 @@ export default function DetailsDevice() {
                       <p>Địa chỉ IP:</p>
                     </Col>
                     <Col span={12} className="init-value">
-                      <p>168.172.308</p>
+                      <p>{thietBiInfo.ipAddress}</p>
                     </Col>
                   </Row>
                 </Col>
@@ -74,7 +90,7 @@ export default function DetailsDevice() {
                       <p>Mật khẩu:</p>
                     </Col>
                     <Col span={12} className="init-value">
-                      <p>CMS</p>
+                      <p>{taiKhoanLogin[0].matkhau}</p>
                     </Col>
                   </Row>
                 </Col>
@@ -83,10 +99,7 @@ export default function DetailsDevice() {
                     <p>Dịch vụ sử dụng:</p>
                   </div>
                   <div className="init-value">
-                    <p>
-                      Khám tim mạch, Khám sản - Phụ khoa, Khám răng hàm mặt,
-                      Khám tai mũi họng, Khám hô hấp, Khám tổng quát.
-                    </p>
+                    <p>{thietBiInfo.service}</p>
                   </div>
                 </Col>
               </Row>

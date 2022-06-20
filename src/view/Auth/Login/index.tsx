@@ -1,9 +1,10 @@
 import { InfoCircleOutlined } from "@ant-design/icons";
 import { Col, Form, Input, Row } from "antd";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { auth } from "../../../config/firebase";
+import { bindActionCreators } from "redux";
+import { state, taikhoanCreator } from "../../../redux";
 import banner from "../../../shared/assets/images/banner.png";
 import logoAlta from "../../../shared/assets/images/logoAlta.png";
 import CButton from "../../../shared/components/Button";
@@ -15,25 +16,30 @@ const Login: React.FC<ILoginPageProps> = (props) => {
   const [password, setPassword] = useState("");
   const [formLogin] = Form.useForm();
   const [checkAuth, setCheckAuth] = useState<boolean>(true);
+  const dispatch = useDispatch();
+  const { loadData, signin, login } = bindActionCreators(
+    taikhoanCreator,
+    dispatch
+  );
+  const { taiKhoanList } = useSelector((state: state) => state.taikhoan);
+  useEffect(() => {
+    loadData();
+  }, []);
   const handleSubmitLogin = () => {
-    formLogin.validateFields().then(async (formValue) => {
-      const { userName, password } = formValue;
-      if (userName && password) {
-        signInWithEmailAndPassword(auth, userName, password)
-          .then((response) => {
-            if (response) {
-              setCheckAuth(true);
-              navigate("/dashboard");
-            }
-          })
-          .catch((error) => {
-            console.log(error);
-            setCheckAuth(false);
-          });
-      } else {
-        // setCheckAuth(false);
-      }
-    });
+    const result = taiKhoanList.filter(
+      (item: any) => item.tendangnhap === username && item.matkhau === password
+    );
+
+    Promise.all(result)
+      .then((res: any) => {
+        if (res[0].tendangnhap !== undefined) {
+          localStorage.setItem("accessToken", result[0].id);
+          localStorage.setItem("currentUser", JSON.stringify(result));
+          signin(true);
+          window.location.href = "/dashboard";
+        }
+      })
+      .catch((error) => setCheckAuth(false));
   };
   const handleOnChangeUsername = (e: ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value);
@@ -53,7 +59,12 @@ const Login: React.FC<ILoginPageProps> = (props) => {
           <Row justify="center" className="login-container">
             <Col span={24}>
               <Row justify="center">
-                <Form layout="vertical" form={formLogin} size="large">
+                <Form
+                  layout="vertical"
+                  form={formLogin}
+                  size="large"
+                  onFinish={handleSubmitLogin}
+                >
                   <Form.Item
                     label="Tên đăng nhập *"
                     validateStatus={checkAuth ? "" : "error"}

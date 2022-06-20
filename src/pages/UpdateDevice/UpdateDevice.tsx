@@ -1,8 +1,58 @@
 import { Button, Col, Input, Row, Select, Space } from "antd";
-import React from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { bindActionCreators } from "redux";
+import { state, thietBiCreator } from "../../redux";
+import { IDevice } from "../../types/TypeDevice";
 import "./UpdateDevice.scss";
+type MyParams = {
+  deviceID: string;
+};
 export default function UpdateDevice() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { deviceID } = useParams<keyof MyParams>() as MyParams;
+  const { updateItem, selectedItem } = bindActionCreators(
+    thietBiCreator,
+    dispatch
+  );
+  const { thietBiInfo } = useSelector((state: state) => state.thietbi);
+  const [updateDevice, setUpdateDevice] = useState<IDevice>({
+    idDevice: "",
+    deviceName: "",
+    ipAddress: "",
+    service: [],
+    statusConnection: true,
+    statusWork: true,
+    matkhau: "",
+    taikhoan: "",
+    typeDevice: "",
+  });
+  const handleOnClickUpdateDevice = () => {
+    updateItem(deviceID, updateDevice);
+    navigate("/device");
+  };
+  useEffect(() => {
+    selectedItem(deviceID);
+  }, []);
+  useEffect(() => {
+    setUpdateDevice({
+      deviceName: thietBiInfo.deviceName,
+      idDevice: thietBiInfo.idDevice,
+      ipAddress: thietBiInfo.ipAddress,
+      service: thietBiInfo.service,
+      statusConnection: thietBiInfo.statusConnection,
+      statusWork: thietBiInfo.statusWork,
+      matkhau: thietBiInfo.matkhau,
+      taikhoan: thietBiInfo.taikhoan,
+      typeDevice: thietBiInfo.typeDevice,
+    });
+  }, [thietBiInfo]);
+  console.log(thietBiInfo.service);
+
   return (
     <div className="update-device">
       <div className="update-device-wrapper">
@@ -25,7 +75,15 @@ export default function UpdateDevice() {
                       </div>
                     </div>
                     <div className="input">
-                      <Input value="KIO_01" />
+                      <Input
+                        value={updateDevice.idDevice}
+                        onChange={(e) =>
+                          setUpdateDevice({
+                            ...updateDevice,
+                            idDevice: e.target.value,
+                          })
+                        }
+                      />
                     </div>
                   </Col>
                   <Col span={12} className="form-item">
@@ -38,11 +96,17 @@ export default function UpdateDevice() {
                     <div className="select-option">
                       <Select
                         suffixIcon={<AiFillCaretDown size={20} />}
-                        defaultValue="kiosk"
+                        value={{ value: `${updateDevice.typeDevice}` }}
                         size="large"
+                        onChange={(value: any) =>
+                          setUpdateDevice({
+                            ...updateDevice,
+                            typeDevice: value,
+                          })
+                        }
                       >
-                        <Select.Option value="kiosk">Kiosk</Select.Option>
-                        <Select.Option value="display-counter">
+                        <Select.Option value="Kiosk">Kiosk</Select.Option>
+                        <Select.Option value="Display Counter">
                           Display Counter
                         </Select.Option>
                       </Select>
@@ -56,7 +120,15 @@ export default function UpdateDevice() {
                       </div>
                     </div>
                     <div className="input">
-                      <Input value="Kiosk" />
+                      <Input
+                        value={updateDevice.deviceName}
+                        onChange={(e) =>
+                          setUpdateDevice({
+                            ...updateDevice,
+                            deviceName: e.target.value,
+                          })
+                        }
+                      />
                     </div>
                   </Col>
                   <Col span={12} className="form-item">
@@ -67,7 +139,15 @@ export default function UpdateDevice() {
                       </div>
                     </div>
                     <div className="input">
-                      <Input value="nhathoangvn112" />
+                      <Input
+                        value={updateDevice.taikhoan}
+                        onChange={(e) =>
+                          setUpdateDevice({
+                            ...updateDevice,
+                            taikhoan: e.target.value,
+                          })
+                        }
+                      />
                     </div>
                   </Col>
                   <Col span={12} className="form-item">
@@ -78,7 +158,15 @@ export default function UpdateDevice() {
                       </div>
                     </div>
                     <div className="input">
-                      <Input value="168.172.308" />
+                      <Input
+                        value={updateDevice.ipAddress}
+                        onChange={(e) =>
+                          setUpdateDevice({
+                            ...updateDevice,
+                            ipAddress: e.target.value,
+                          })
+                        }
+                      />
                     </div>
                   </Col>
                   <Col span={12} className="form-item">
@@ -89,7 +177,15 @@ export default function UpdateDevice() {
                       </div>
                     </div>
                     <div className="input">
-                      <Input value="CMS" />
+                      <Input
+                        value={updateDevice.matkhau}
+                        onChange={(e) =>
+                          setUpdateDevice({
+                            ...updateDevice,
+                            matkhau: e.target.value,
+                          })
+                        }
+                      />
                     </div>
                   </Col>
                   <Col span={24} className="form-item">
@@ -100,22 +196,30 @@ export default function UpdateDevice() {
                       </div>
                     </div>
                     <div className="service-usage">
-                      <Select mode="multiple">
-                        <Select.Option value="tatCa">Tất cả</Select.Option>
-                        <Select.Option value="timMach">
+                      <Select
+                        mode="multiple"
+                        value={updateDevice.service}
+                        onChange={(value: any) =>
+                          setUpdateDevice({ ...updateDevice, service: value })
+                        }
+                      >
+                        <Select.Option value="Tất cả">Tất cả</Select.Option>
+                        <Select.Option value="Khám tim mạch">
                           Khám tim mạch
                         </Select.Option>
-                        <Select.Option value="sanPhuKhoa">
+                        <Select.Option value="Khám sản-Phụ khoa">
                           Khám sản phụ khoa
                         </Select.Option>
-                        <Select.Option value="rangHamMat">
+                        <Select.Option value="Khám răng hàm mặt">
                           Khám răng hàm mặt
                         </Select.Option>
-                        <Select.Option value="taiMuiHong">
+                        <Select.Option value="Khám tai mũi họng">
                           Khám tai mũi họng
                         </Select.Option>
-                        <Select.Option value="hoHap">Khám hô hấp</Select.Option>
-                        <Select.Option value="tongQuat">
+                        <Select.Option value="Khám hô hấp">
+                          Khám hô hấp
+                        </Select.Option>
+                        <Select.Option value="Khám tổng quát">
                           Khám tổng quát
                         </Select.Option>
                       </Select>
@@ -134,8 +238,18 @@ export default function UpdateDevice() {
             </div>
             <Row justify="center" align="middle" className="action-container">
               <Space size="large">
-                <Button className="btn-cancel">Huỷ bỏ</Button>
-                <Button className="btn-update">Cập nhật</Button>
+                <Button
+                  className="btn-cancel"
+                  onClick={() => navigate("/device")}
+                >
+                  Huỷ bỏ
+                </Button>
+                <Button
+                  className="btn-update"
+                  onClick={handleOnClickUpdateDevice}
+                >
+                  Cập nhật
+                </Button>
               </Space>
             </Row>
           </div>

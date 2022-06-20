@@ -1,15 +1,28 @@
 import { Menu, Row } from "antd";
+import { useEffect } from "react";
 import { BsClipboardData } from "react-icons/bs";
 import { FiLayers, FiLogOut } from "react-icons/fi";
 import { HiOutlineDesktopComputer } from "react-icons/hi";
 import { MdMoreVert, MdOutlineDashboard } from "react-icons/md";
 import { RiSettingsLine, RiWechatLine } from "react-icons/ri";
+import { useDispatch } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
+import { bindActionCreators } from "redux";
+import { taikhoanCreator } from "../../redux";
 import logo from "../../shared/assets/images/logoAltaMain.png";
 import Header from "./components/Header";
 import "./HomePage.scss";
 export default function HomePage() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { signin } = bindActionCreators(taikhoanCreator, dispatch);
+  const handleOnClickLogout = () => {
+    navigate("/login");
+    signin(false);
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("currentUser");
+  };
+
   return (
     <div className="main-layout">
       <div className="main">
@@ -17,12 +30,7 @@ export default function HomePage() {
           <Row className="main-left-logo" justify="center" align="middle">
             <img src={logo} alt="" />
           </Row>
-          <Menu
-            style={{ width: 220 }}
-            // defaultSelectedKeys={["dashboard"]}
-            // defaultOpenKeys={["dashboard"]}
-            className="main-menu"
-          >
+          <Menu style={{ width: 220 }} className="main-menu">
             <Menu.Item
               key="dashboard"
               icon={<MdOutlineDashboard size={20} />}
@@ -109,9 +117,7 @@ export default function HomePage() {
               className="logout"
               key="logout"
               icon={<FiLogOut size={20} />}
-              onClick={() => {
-                navigate("/login");
-              }}
+              onClick={handleOnClickLogout}
             >
               Đăng xuất
             </Menu.Item>

@@ -1,44 +1,50 @@
 import { Badge, Col, Input, Row, Select, Table } from "antd";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   AiFillCaretDown,
   AiFillCaretLeft,
   AiFillCaretRight,
-  AiFillPlusSquare,
 } from "react-icons/ai";
 import { BiSearch } from "react-icons/bi";
-import { BsFillPlusSquareFill, BsPlusSquareFill } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
+import { BsPlusSquareFill } from "react-icons/bs";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { bindActionCreators } from "redux";
+import { state, thietBiCreator } from "../../redux";
 import dataThietBi from "./dataDevice.json";
 import "./Device.scss";
 export default function Device() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { loadData } = bindActionCreators(thietBiCreator, dispatch);
+  useEffect(() => {
+    loadData();
+  }, []);
+  const { thietBiList } = useSelector((state: state) => state.thietbi);
+
   const columnDevice = [
     {
       title: "Mã thiết bị",
-      dataIndex: "id",
-      key: "id",
+      dataIndex: "idDevice",
       width: 120,
       render: (id: string) => <Row align="middle">{id}</Row>,
     },
     {
       title: "Tên thiết bị",
       dataIndex: "deviceName",
-      key: "deviceName",
       width: 119,
       render: (deviceName: string) => <Row align="middle">{deviceName}</Row>,
     },
     {
       title: "Địa chỉ IP",
       dataIndex: "ipAddress",
-      key: "ipAddress",
       width: 138,
       render: (ipAddress: string) => <Row align="middle">{ipAddress}</Row>,
     },
     {
       title: "Trạng thái hoạt động",
       dataIndex: "statusWork",
-      key: "statusWork",
       width: 200,
       render: (statusWork: boolean) => (
         <Row align="middle">
@@ -58,8 +64,7 @@ export default function Device() {
     },
     {
       title: "Trạng thái kết nối",
-      dataIndex: "statusConection",
-      key: "statusConection",
+      dataIndex: "statusConnection",
       width: 171,
       render: (statusConection: boolean) => (
         <Row align="middle">
@@ -85,12 +90,15 @@ export default function Device() {
     {
       title: "Dịch vụ sử dụng",
       dataIndex: "service",
-      key: "service",
       width: 268,
-      render: (service: string) => (
+      render: (service: string[]) => (
         <React.Fragment>
           <div className="usedService">
-            <span className="ant-table-cell-content">{service}</span>
+            <span className="ant-table-cell-content">
+              {service.map((item: any) => {
+                return item + ",";
+              })}
+            </span>
           </div>
           <div className="ant-table-cell-more">
             <div className="more">Xem thêm</div>
@@ -104,34 +112,33 @@ export default function Device() {
     {
       title: "",
       dataIndex: "id",
-      key: "id",
       width: 125,
       render: (id: string) => (
         <Row justify="center" align="middle">
-          <span
-            onClick={() => navigate("/device/details")}
+          <Link
+            to={`/device/details/${id}`}
             className="more"
             style={{ textDecoration: "underLine" }}
           >
             Chi tiết
-          </span>
+          </Link>
         </Row>
       ),
     },
     {
       title: "",
       dataIndex: "id",
-      key: "id",
       width: 125,
       render: (id: string) => (
         <Row justify="center" align="middle">
-          <span
+          <Link
+            to={`/device/update/${id}`}
             className="more"
             onClick={() => navigate("/device/update")}
             style={{ textDecoration: "underLine" }}
           >
             Cập nhật
-          </span>
+          </Link>
         </Row>
       ),
     },
@@ -212,7 +219,7 @@ export default function Device() {
             <Table
               style={{ height: "490px", width: "1112px" }}
               columns={columnDevice}
-              dataSource={dataThietBi}
+              dataSource={thietBiList}
               pagination={{ pageSize: 9, itemRender: itemPagination }}
             />
           </div>
@@ -225,13 +232,13 @@ export default function Device() {
               justify="center"
               align="middle"
               className="service-form-right-container"
-              onClick={() => navigate("/service/create")}
+              onClick={() => navigate("/device/create")}
             >
               <div className="icon">
                 <BsPlusSquareFill size={20} color="#ff9138" />
               </div>
               <div className="action-title">
-                <p>Thêm dịch vụ</p>
+                <p>Thêm thiết bị</p>
               </div>
             </Row>
           </div>

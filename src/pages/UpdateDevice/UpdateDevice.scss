@@ -58,6 +58,7 @@
           .update-device-form-item {
             .select-option {
               padding-bottom: 12px;
+
               .ant-select-lg {
                 span {
                   font-weight: 400 !important;
@@ -102,9 +103,9 @@
             }
             .form-item {
               .service-usage {
-                .ant-select-selection-overflow {
-                  height: 80px;
-                }
+                // .ant-select-selection-overflow {
+                //   height: 80px;
+                // }
                 .ant-select-selection-overflow-item {
                   align-items: unset;
                 }
@@ -121,7 +122,7 @@
                 }
                 .ant-select-selector {
                   width: 1114px;
-                  height: 80px;
+                  height: 80px !important;
                   background: #ffffff;
                   border: 1.5px solid #ffac6a;
                   border-radius: 8px;

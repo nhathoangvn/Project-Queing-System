@@ -1,7 +1,9 @@
 import { Avatar, Breadcrumb, Col, Dropdown, Row } from "antd";
 import React, { useState } from "react";
 import { BsFillBellFill } from "react-icons/bs";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { state } from "../../../../redux";
 import avatar from "../../../../shared/assets/images/avatar.png";
 import Notification, { INotification } from "../Notification/Notification";
 import "./Header.scss";
@@ -10,11 +12,22 @@ interface IBreadcrumb {
   title: string[];
   childrenBreadcrumb?: IBreadcrumb;
 }
+interface IRouterProps {
+  path: string;
+  breadcrumbName: string;
+  children?: Array<{
+    path: string;
+    breadcrumbName: string;
+  }>;
+}
+
 const Header: React.FC = (props) => {
   const location = useLocation();
   const navigate = useNavigate();
   const [isCheckedNotification, setIsCheckedNotification] =
     useState<boolean>(false);
+  const { taiKhoanLogin } = useSelector((state: state) => state.taikhoan);
+  const { deviceID } = useParams();
   const breadcrumbItems: IBreadcrumb[] = [
     {
       pathname: "/dashboard",
@@ -29,11 +42,11 @@ const Header: React.FC = (props) => {
       title: ["Thiết bị", "Danh sách thiết bị", "Thêm thiết bị"],
     },
     {
-      pathname: "/device/details",
+      pathname: `/device/details/${deviceID}`,
       title: ["Thiết bị", "Danh sách thiết bị", "Chi tiết thiết bị"],
     },
     {
-      pathname: "/device/update",
+      pathname: `/device/update/${deviceID}`,
       title: ["Thiết bị", "Danh sách thiết bị", "Cập nhật thiết bị"],
     },
     {
@@ -85,6 +98,14 @@ const Header: React.FC = (props) => {
       title: ["Cài đặt hệ thống", "Quản lý tài khoản"],
     },
     {
+      pathname: "/manage-account/create",
+      title: ["Cài đặt hệ thống", "Quản lý tài khoản", "Thêm tài khoản"],
+    },
+    {
+      pathname: "/manage-account/update",
+      title: ["Cài đặt hệ thống", "Quản lý tài khoản", "Cập nhật tài khoản"],
+    },
+    {
       pathname: "/dinary-user",
       title: ["Cài đặt hệ thống", "Nhật ký người dùng"],
     },
@@ -93,17 +114,26 @@ const Header: React.FC = (props) => {
       title: ["Thông tin cá nhân"],
     },
   ];
-  const breadcrumb = (pathname: string) => {
-    return breadcrumbItems
-      .map((breadcrumbItem) => {
-        switch (pathname) {
-          case breadcrumbItem.pathname:
-            return breadcrumbItem;
-          default:
-            return null;
-        }
-      })
-      .filter((value) => value != null);
+  const breadcrumb = (locationPathname: string) => {
+    return breadcrumbItems.map((breadcrumbItem) => {
+      switch (breadcrumbItem.pathname) {
+        case locationPathname:
+          return breadcrumbItem;
+        default:
+          return null;
+      }
+    });
+
+    //   .filter((value) => value != null);
+    // if (pathname.startsWith(pathname)) {
+    //   return breadcrumbItems.filter(
+    //     (item: IBreadcrumb) => item.pathname === pathname
+    //   );
+    // }
+    // return breadcrumbItems.filter((item: IBreadcrumb) =>
+    //   locationPathname.startsWith(item.pathname)
+    // );
+    // return locationPathname.split("/").filter((value) => value !== "");+
   };
 
   const Notifications: INotification = {
@@ -178,6 +208,7 @@ const Header: React.FC = (props) => {
               );
             })
           )}
+          {/* {breadcrumb(location.pathname)} */}
         </Breadcrumb>
       </Col>
       <Col
@@ -225,7 +256,7 @@ const Header: React.FC = (props) => {
               <Avatar src={avatar} size={40} />
               <div className="header-user-info">
                 <span>Xin chào</span>
-                <p>Phan Võ Nhật Hoàng</p>
+                <p>{taiKhoanLogin[0].hoten}</p>
               </div>
             </Row>
           </Col>

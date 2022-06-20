@@ -9,7 +9,7 @@ interface ButtonProps {
   size?: SizeType;
   disable?: boolean;
   icon?: ReactNode;
-  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  onClick?: ((event: React.MouseEvent<HTMLButtonElement>) => void) | any;
   cName?: string;
 }
 
