@@ -37,7 +37,6 @@ export const selectedItem =
       console.log(error);
     }
   };
-
 export const updateItem =
   (id: string, device: IDevice) =>
   async (dispatch: Dispatch<thietBiAction>) => {
@@ -61,6 +60,40 @@ export const addItem =
       dispatch({
         type: "ADD_ITEM",
         payload: data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+export const filterOnChange =
+  (search: string) => async (dispatch: Dispatch<thietBiAction>) => {
+    try {
+      dispatch({
+        type: "FILTER_ONCHANGE",
+        payload: search,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+export const statusWorkFilterChange =
+  (statusWork: any) => async (dispatch: Dispatch<thietBiAction>) => {
+    try {
+      dispatch({
+        type: "STATUSWORK_FILTER_CHANGE",
+        payload: statusWork,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+export const statusConnectionFilterChange =
+  (status: any) => async (dispatch: Dispatch<thietBiAction>) => {
+    try {
+      dispatch({
+        type: "STATUSCONNECTION_FILTER_CHANGE",
+        payload: status,
       });
     } catch (error) {
       console.log(error);

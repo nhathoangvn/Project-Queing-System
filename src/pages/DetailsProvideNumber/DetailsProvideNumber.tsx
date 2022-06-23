@@ -1,10 +1,25 @@
 import { Badge, Col, Row } from "antd";
-import React from "react";
+import moment from "moment";
+import React, { useEffect } from "react";
 import { RiArrowGoBackFill } from "react-icons/ri";
-import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { bindActionCreators } from "redux";
+import { capSoCreator, state } from "../../redux";
 import "./DetailsProvideNumber.scss";
+type MyParams = {
+  numberID: string;
+};
 export default function DetailsProvideNumber() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { numberID } = useParams<keyof MyParams>() as MyParams;
+  const { selectedItem } = bindActionCreators(capSoCreator, dispatch);
+  const { capSoSelected } = useSelector((state: state) => state.capSo);
+  useEffect(() => {
+    selectedItem(numberID);
+  }, [numberID]);
   return (
     <div className="details-provide-number">
       <div className="details-provide-number-wrapper">
@@ -21,26 +36,28 @@ export default function DetailsProvideNumber() {
                 <Row className="content-form">
                   <Col className="content-form-item" span={6}>
                     <span className="label">Họ tên:</span>
-                    <span className="children">Nguyễn Thị Dung</span>
+                    <span className="children">{capSoSelected.fullname}</span>
                   </Col>
                   <Col className="content-form-item" offset={6} span={8}>
                     <span className="label">Nguồn cấp:</span>
-                    <span className="children">Kiosk</span>
+                    <span className="children">{capSoSelected.source}</span>
                   </Col>
                   <Col className="content-form-item" span={6}>
                     <span className="label">Tên dịch vụ:</span>
-                    <span className="children">Khám tim mạch</span>
+                    <span className="children">
+                      {capSoSelected.serviceName}
+                    </span>
                   </Col>
                   <Col className="content-form-item" offset={6} span={8}>
                     <span className="label">Trạng thái:</span>
                     <span className="children">
                       <Badge color="blue" />
-                      Đang chờ
+                      {capSoSelected.status}
                     </span>
                   </Col>
                   <Col className="content-form-item" span={6}>
                     <span className="label">Số thứ tự:</span>
-                    <span className="children">2001201</span>
+                    <span className="children">{capSoSelected.number}</span>
                   </Col>
                   <Col className="content-form-item" offset={6} span={8}>
                     <span className="label">Số điện thoại:</span>
@@ -48,7 +65,11 @@ export default function DetailsProvideNumber() {
                   </Col>
                   <Col className="content-form-item" span={6}>
                     <span className="label">Thời gian cấp:</span>
-                    <span className="children">14:30 06/11/2021</span>
+                    <span className="children">
+                      {moment(capSoSelected.createdAt).format(
+                        "HH:mm DD/MM/YYYY"
+                      )}
+                    </span>
                   </Col>
                   <Col className="content-form-item" offset={6} span={8}>
                     <span className="label">Địa chỉ Email:</span>
@@ -56,7 +77,9 @@ export default function DetailsProvideNumber() {
                   </Col>
                   <Col className="content-form-item" span={6}>
                     <span className="label">Hạn sử dụng:</span>
-                    <span className="children">18:00 06/11/2021</span>
+                    <span className="children">
+                      {moment(capSoSelected.expity).format("HH:mm DD/MM/YYYY")}
+                    </span>
                   </Col>
                 </Row>
               </div>

@@ -1,6 +1,6 @@
 import { db } from "../../config/firebase";
 import { Dispatch } from "redux";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, doc, getDocs, setDoc } from "firebase/firestore";
 import { taiKhoanAction } from "../actions/taiKhoanAction";
 export const loadData = () => async (dispatch: Dispatch<taiKhoanAction>) => {
   try {
@@ -51,6 +51,41 @@ export const checkEmail =
       dispatch({
         type: "CHECK_MAIL",
         payload: email,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+export const filterBySearchText =
+  (searchText: string) => async (dispatch: Dispatch<taiKhoanAction>) => {
+    try {
+      dispatch({
+        type: "FILTER_BY_SEARCHTEXT",
+        payload: searchText,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+export const filterByRole =
+  (role: any) => async (dispatch: Dispatch<taiKhoanAction>) => {
+    try {
+      dispatch({
+        type: "FILTER_BY_ROLE",
+        payload: role,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+export const updateAccount =
+  (id: string, account: any) => async (dispatch: Dispatch<taiKhoanAction>) => {
+    try {
+      const docRef = doc(db, "taikhoan", id);
+      const data = await setDoc(docRef, account);
+      dispatch({
+        type: "UPDATE_ACCOUNT",
+        payload: data,
       });
     } catch (error) {
       console.log(error);

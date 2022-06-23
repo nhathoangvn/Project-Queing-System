@@ -1,29 +1,38 @@
-import {
-  Badge,
-  Col,
-  DatePicker,
-  Dropdown,
-  Input,
-  Menu,
-  Row,
-  Select,
-  Table,
-  Typography,
-} from "antd";
-import React from "react";
+import { Badge, Col, DatePicker, Input, Row, Select, Table } from "antd";
+import moment from "moment";
+import React, { ChangeEvent, useEffect } from "react";
 import {
   AiFillCaretDown,
   AiFillCaretLeft,
   AiFillCaretRight,
 } from "react-icons/ai";
-import data from "./dataProvideNumber.json";
 import { BiCalendar, BiSearch } from "react-icons/bi";
 import { BsFillPlusSquareFill } from "react-icons/bs";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { bindActionCreators } from "redux";
+import { capSoCreator } from "../../redux";
+import { capSoRemainingSelector } from "../../redux/selectors/capSoSelector";
 import "./ProvideNumber.scss";
-import { useNavigate } from "react-router-dom";
+
 const Option = Select.Option;
 export default function ProvideNumber() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const {
+    loadData,
+    filterBySearchText,
+    filterByServiceName,
+    filterByStatus,
+    filterBySource,
+  } = bindActionCreators(capSoCreator, dispatch);
+  const capSoList = useSelector(capSoRemainingSelector);
+
+  //Load data từ firebase
+  useEffect(() => {
+    loadData();
+  }, []);
+
   const columns = [
     {
       title: "STT",
@@ -47,13 +56,15 @@ export default function ProvideNumber() {
       title: "Thời gian cấp",
       dataIndex: "createdAt",
       width: 161,
-      render: (createdAt: string) => <Row align="middle">{createdAt}</Row>,
+      render: (createdAt: any) => (
+        <Row align="middle">{createdAt.toString()}</Row>
+      ),
     },
     {
       title: "Hạn sử dụng",
-      dataIndex: "hsd",
+      dataIndex: "expiry",
       width: 174,
-      render: (hsd: string) => <Row align="middle">{hsd}</Row>,
+      render: (hsd: any) => <Row align="middle">{hsd.toString()}</Row>,
     },
     {
       title: "Trạng thái",
@@ -74,13 +85,10 @@ export default function ProvideNumber() {
       dataIndex: "id",
       width: 78,
       render: (id: string) => (
-        <Row
-          className="more"
-          align="middle"
-          justify="center"
-          onClick={() => navigate("/provide-number/details")}
-        >
-          Chi tiết
+        <Row className="more" align="middle" justify="center">
+          <Link className="more" to={`/provide-number/details/${id}`}>
+            Chi tiết
+          </Link>
         </Row>
       ),
     },
@@ -133,16 +141,19 @@ export default function ProvideNumber() {
                 <span>Tên dịch vụ</span>
                 <div className="select-option">
                   <Select
-                    defaultValue="tatca"
                     suffixIcon={<AiFillCaretDown size={20} />}
                     dropdownStyle={{
                       borderRadius: "8px",
                     }}
+                    defaultValue="tatCa"
+                    onChange={(value) => filterByServiceName(value)}
                   >
-                    <Option value="tatca">Tất cả</Option>
-                    <Option value="khamsan">Khám sản - Phụ khoa</Option>
-                    <Option value="khamrang">Khám răng hàm mặt</Option>
-                    <Option value="khamtai">Khám tai mũi họng</Option>
+                    <Option value="tatCa">Tất cả</Option>
+                    <Option value="Khám sản-Phụ khoa">
+                      Khám sản - Phụ khoa
+                    </Option>
+                    <Option value="Khám răng hàm mặt">Khám răng hàm mặt</Option>
+                    <Option value="Khám tai mũi họng">Khám tai mũi họng</Option>
                   </Select>
                 </div>
               </Col>
@@ -150,13 +161,14 @@ export default function ProvideNumber() {
                 <span>Tình trạng</span>
                 <div className="select-option">
                   <Select
-                    defaultValue="tatca"
+                    defaultValue="tatCa"
+                    onChange={(value) => filterByStatus(value)}
                     suffixIcon={<AiFillCaretDown size={20} />}
                   >
-                    <Option value="tatca">Tất cả</Option>
-                    <Option value="khamsan">Đang chờ</Option>
-                    <Option value="khamrang">Đã sử dụng</Option>
-                    <Option value="khamtai">Bỏ qua</Option>
+                    <Option value="tatCa">Tất cả</Option>
+                    <Option value="Đang chờ">Đang chờ</Option>
+                    <Option value="Đã sử dụng">Đã sử dụng</Option>
+                    <Option value="Bỏ qua">Bỏ qua</Option>
                   </Select>
                 </div>
               </Col>
@@ -164,12 +176,13 @@ export default function ProvideNumber() {
                 <span>Nguồn cấp</span>
                 <div className="select-option">
                   <Select
-                    defaultValue="tatca"
+                    defaultValue="tatCa"
                     suffixIcon={<AiFillCaretDown size={20} />}
+                    onChange={(value) => filterBySource(value)}
                   >
-                    <Option value="tatca">Tất cả</Option>
-                    <Option value="khamsan">Kiosk</Option>
-                    <Option value="khamrang">Hệ thống</Option>
+                    <Option value="tatCa">Tất cả</Option>
+                    <Option value="Kiosk">Kiosk</Option>
+                    <Option value="Hệ thống">Hệ thống</Option>
                   </Select>
                 </div>
               </Col>
@@ -187,6 +200,9 @@ export default function ProvideNumber() {
                 <span>Từ khoá</span>
                 <div>
                   <Input
+                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                      filterBySearchText(e.target.value)
+                    }
                     placeholder="Nhập từ khoá "
                     className="input-search"
                     suffix={<BiSearch size={20} />}
@@ -198,7 +214,7 @@ export default function ProvideNumber() {
           <div className="provide-number-table-container">
             <div className="table-content">
               <Table
-                dataSource={data}
+                dataSource={capSoList}
                 columns={columns}
                 pagination={{ pageSize: 9, itemRender: itemPagination }}
               />

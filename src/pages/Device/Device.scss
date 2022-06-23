@@ -1,4 +1,7 @@
 @import "../../shared/assets/scss/variable";
+.ant-select-selection-overflow-item {
+  border-radius: 9px;
+}
 .device-container {
   display: flex;
   .device-wrapper {

@@ -111,7 +111,7 @@ export default function DetailsDevice() {
           justify="center"
           align="middle"
           className="details-device-form-action"
-          onClick={() => navigate("/device/update")}
+          onClick={() => navigate(`/device/update/${deviceID}`)}
         >
           <div className="action-icon">
             <FaPenSquare size={26} color="#FF9138" />

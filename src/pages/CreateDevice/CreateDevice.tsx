@@ -1,6 +1,7 @@
 import { Button, Col, Input, Row, Select, Space } from "antd";
 import React, { useState } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
+import { BiDownArrow } from "react-icons/bi";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
@@ -15,7 +16,7 @@ export default function CreateDevice() {
     deviceName: "",
     idDevice: "",
     ipAddress: "",
-    service: ["Khám tim", "Khám sản-Phụ khoa", "Khám răng hàm mặt"],
+    service: [],
     statusConnection: true,
     statusWork: true,
     matkhau: "",
@@ -126,15 +127,41 @@ export default function CreateDevice() {
                   }
                 />
               </Col>
-              <Col span={24} className="create-device-form-item">
+              <Col
+                span={24}
+                className="create-device-form-item select-service-usage"
+              >
                 <span>
                   Dịch vụ sử dụng:<span>*</span>
                 </span>
-
-                <Input
+                <Select
+                  value={newDevice.service}
+                  onChange={(value: string[]) =>
+                    setNewDevice({ ...newDevice, service: value })
+                  }
+                  mode="multiple"
+                  suffixIcon={<AiFillCaretDown size={20} color="#FF7506" />}
+                >
+                  <Select.Option value="Tất cả">Tất cả</Select.Option>
+                  <Select.Option value="Khám tim">Khám tim</Select.Option>
+                  <Select.Option value="Khám răng hàm mặt">
+                    Khám răng hàm mặt
+                  </Select.Option>
+                  <Select.Option value="Khám sản-Phụ khoa">
+                    Khám sản-Phụ khoa
+                  </Select.Option>
+                  <Select.Option value="TKhám tai mũi họng">
+                    Khám tai mũi họng
+                  </Select.Option>
+                  <Select.Option value="Khám hô hấp">Khám hô hấp</Select.Option>
+                  <Select.Option value="Khám tổng quát">
+                    Khám tổng quát
+                  </Select.Option>
+                </Select>
+                {/* <Input
                   className="form-item-input-service"
                   placeholder="Nhập dịch vụ sử dụng"
-                />
+                /> */}
               </Col>
               <Col span={24} className="required">
                 <span>

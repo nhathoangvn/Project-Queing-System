@@ -1,17 +1,50 @@
-import { Button, Modal, Row, Select, Space } from "antd";
-import React, { useState } from "react";
+import { Button, Modal, Select, Space } from "antd";
+import moment from "moment";
+import React, { useEffect, useState } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { bindActionCreators } from "redux";
+import { capSoCreator, state } from "../../redux";
 import "./CreateProvideNumber.scss";
 export default function CreateProvideNumber() {
   const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [service, setService] = useState<string>("");
+  const dispatch = useDispatch();
+  const { addItem, loadData } = bindActionCreators(capSoCreator, dispatch);
+  const [number, setNumber] = useState<number>(0);
+  const { capSoList } = useSelector((state: state) => state.capSo);
+
+  useEffect(() => {
+    loadData();
+    const list = [];
+    for (let i = 0; i < capSoList.length; i++) {
+      list.push(capSoList[i].number);
+    }
+    setNumber(Math.max.apply(null, list));
+  }, []);
   const handleOnClickShowModal = () => {
+    addItem({
+      number: number + 1,
+      fullname: "Nguyễn C",
+      source: "Kiosk",
+      status: "Đang chờ",
+      createdAt: moment(Date.now()).format("HH:mm DD/MM/YYYY"),
+      expiry: moment(Date.now()).add(7, "days").format("HH:mm DD/MM/YYYY"),
+      serviceName: service,
+    });
+    setNumber(number + 1);
     setIsVisible(true);
+  };
+  const handleOnChangeSelectService = (value: string) => {
+    setService(value);
   };
   const handleOnClickCloseModal = () => {
     setIsVisible(false);
   };
+
   return (
     <div className="create-provide-number">
       <div className="create-provide-number-wrapper">
@@ -32,15 +65,16 @@ export default function CreateProvideNumber() {
                       <Select
                         placeholder="Chọn dịch vụ"
                         suffixIcon={<AiFillCaretDown size={20} />}
+                        onChange={(value) => handleOnChangeSelectService(value)}
                       >
-                        <Select.Option value="khamtim">Khám tim</Select.Option>
-                        <Select.Option value="khamsan">
+                        <Select.Option value="Khám tim">Khám tim</Select.Option>
+                        <Select.Option value="Khám sản-Phụ khoa">
                           Khám sản - Phụ khoa
                         </Select.Option>
-                        <Select.Option value="khamrang">
+                        <Select.Option value="Khám răng hàm mặt">
                           Khám răng hàm mặt
                         </Select.Option>
-                        <Select.Option value="khamtai">
+                        <Select.Option value="Khám tai mũi họng">
                           Khám tai mũi họng
                         </Select.Option>
                       </Select>
@@ -85,7 +119,7 @@ export default function CreateProvideNumber() {
                 <span>Số thứ tự được cấp</span>
               </div>
               <div className="text-center">
-                <span>2001201</span>
+                <span>{number}</span>
               </div>
             </div>
             <div
@@ -96,7 +130,7 @@ export default function CreateProvideNumber() {
               }}
             >
               <p className="text-bottom">
-                DV: Khám răng hàm mặt
+                DV: {service}
                 <span className="text-bold" style={{ fontWeight: "bold" }}>
                   (Tại quầy số 1)
                 </span>
@@ -116,8 +150,13 @@ export default function CreateProvideNumber() {
             textAlign: "center",
           }}
         >
-          <span>Thời gian cấp: 09:30 11/10/2021</span>
-          <span>Hạn sử dụng: 17:30 11/10/2021</span>
+          <span>
+            Thời gian cấp: {moment(Date.now()).format("HH:mm DD/MM/YYYY")}
+          </span>
+          <span>
+            Hạn sử dụng:
+            {moment(Date.now()).add(7, "days").format("HH:mm DD/MM/YYYY")}
+          </span>
         </div>
       </Modal>
     </div>

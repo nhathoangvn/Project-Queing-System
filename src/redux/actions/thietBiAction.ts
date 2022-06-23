@@ -18,9 +18,24 @@ type addItem = {
   type: "ADD_ITEM";
   payload: any;
 };
+type filterOnchange = {
+  type: "FILTER_ONCHANGE";
+  payload: any;
+};
+type statusWorkFilterChange = {
+  type: "STATUSWORK_FILTER_CHANGE";
+  payload: any;
+};
+type statusConnectionFilterChange = {
+  type: "STATUSCONNECTION_FILTER_CHANGE";
+  payload: any;
+};
 export type thietBiAction =
   | loadData
   | updateData
   | selectedItem
   | getData
-  | addItem;
+  | addItem
+  | filterOnchange
+  | statusWorkFilterChange
+  | statusConnectionFilterChange;

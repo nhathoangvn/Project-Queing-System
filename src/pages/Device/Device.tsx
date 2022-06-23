@@ -1,5 +1,5 @@
 import { Badge, Col, Input, Row, Select, Table } from "antd";
-import React, { useEffect } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import {
   AiFillCaretDown,
   AiFillCaretLeft,
@@ -7,21 +7,51 @@ import {
 } from "react-icons/ai";
 import { BiSearch } from "react-icons/bi";
 import { BsPlusSquareFill } from "react-icons/bs";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
-import { state, thietBiCreator } from "../../redux";
-import dataThietBi from "./dataDevice.json";
+import { thietBiCreator } from "../../redux";
+import {
+  thietBiRemainingSelector,
+  thietBiSelector,
+} from "../../redux/selectors/ThietBiSelector";
 import "./Device.scss";
 export default function Device() {
+  const [searchText, setSearchText] = useState("");
+  let locale = {
+    emptyText: "Không có dữ liệu",
+  };
+  const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { loadData } = bindActionCreators(thietBiCreator, dispatch);
+  const {
+    loadData,
+    filterOnChange,
+    statusWorkFilterChange,
+    statusConnectionFilterChange,
+  } = bindActionCreators(thietBiCreator, dispatch);
+
+  //Load dữ liệu của thiết bị
   useEffect(() => {
     loadData();
   }, []);
-  const { thietBiList } = useSelector((state: state) => state.thietbi);
+
+  //dùng selector gọi danh sách thiết bị từ store chung của redux
+  const thietBiList = useSelector(thietBiRemainingSelector);
+  // const searchText = useSelector(searchTextSelector);
+
+  //
+  const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+    filterOnChange(e.target.value);
+  };
+  //
+  const handleOnchangeStatusWork = (value: any) => {
+    statusWorkFilterChange(value);
+  };
+  //
+  const handleOnchangeStatusConnection = (value: any) => {
+    statusConnectionFilterChange(value);
+  };
 
   const columnDevice = [
     {
@@ -94,16 +124,12 @@ export default function Device() {
       render: (service: string[]) => (
         <React.Fragment>
           <div className="usedService">
-            <span className="ant-table-cell-content">
-              {service.map((item: any) => {
-                return item + ",";
-              })}
-            </span>
+            <span>{service && service.join(",")}</span>
           </div>
           <div className="ant-table-cell-more">
             <div className="more">Xem thêm</div>
             <div className="ant-table-cell-dichvu">
-              <p>{service}</p>
+              {/* <p>{service}</p> */}
             </div>
           </div>
         </React.Fragment>
@@ -173,12 +199,11 @@ export default function Device() {
                 size="large"
                 defaultValue="tatCa"
                 suffixIcon={<AiFillCaretDown size={20} />}
+                onChange={(value) => handleOnchangeStatusWork(value)}
               >
                 <Select.Option value="tatCa">Tất cả</Select.Option>
-                <Select.Option value="hoatDong">Hoạt động</Select.Option>
-                <Select.Option value="ngungHoatDong">
-                  Ngưng hoạt động
-                </Select.Option>
+                <Select.Option value={true}>Hoạt động</Select.Option>
+                <Select.Option value={false}>Ngưng hoạt động</Select.Option>
               </Select>
             </Col>
             <Col span={7}>
@@ -189,10 +214,11 @@ export default function Device() {
                 size="large"
                 defaultValue="tatCa"
                 suffixIcon={<AiFillCaretDown size={20} />}
+                onChange={(value) => handleOnchangeStatusConnection(value)}
               >
                 <Select.Option value="tatCa">Tất cả</Select.Option>
-                <Select.Option value="ketNoi">Kết nối</Select.Option>
-                <Select.Option value="matKetNoi">Mất kết nối</Select.Option>
+                <Select.Option value={true}>Kết nối</Select.Option>
+                <Select.Option value={false}>Mất kết nối</Select.Option>
               </Select>
             </Col>
             <Col span={7} offset={3} style={{ paddingLeft: "35px" }}>
@@ -200,6 +226,7 @@ export default function Device() {
                 <span>Từ khoá</span>
               </div>
               <Input
+                onChange={(e) => handleOnChange(e)}
                 placeholder="Nhập từ khoá"
                 suffix={<BiSearch size={20} />}
                 size="large"
@@ -217,6 +244,7 @@ export default function Device() {
             className="thietBi__content-table"
           >
             <Table
+              locale={locale}
               style={{ height: "490px", width: "1112px" }}
               columns={columnDevice}
               dataSource={thietBiList}

@@ -1,8 +1,43 @@
 import { Button, Checkbox, Col, Input, Row, Space } from "antd";
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { bindActionCreators } from "redux";
+import { dichVuCreator, state } from "../../redux";
+type MyParams = {
+  serviceID: string;
+};
 export default function UpdateService() {
+  const [updateService, setUpdateService] = useState({
+    idService: "",
+    serviceName: "",
+    description: "",
+    statusWork: true,
+  });
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { selectedItem, updateItem } = bindActionCreators(
+    dichVuCreator,
+    dispatch
+  );
+  const { serviceID } = useParams<keyof MyParams>() as MyParams;
+  useEffect(() => {
+    selectedItem(serviceID);
+  }, [serviceID]);
+  const { dichVuSelected } = useSelector((state: state) => state.dichvu);
+  useEffect(() => {
+    setUpdateService({
+      idService: dichVuSelected.idService,
+      description: dichVuSelected.description,
+      serviceName: dichVuSelected.serviceName,
+      statusWork: dichVuSelected.statusWork,
+    });
+  }, [dichVuSelected]);
+  const handleOnClickUpdateItemService = () => {
+    updateItem(serviceID, updateService);
+    navigate("/service");
+  };
   return (
     <div className="create-service">
       <div className="create-service-wrapper">
@@ -26,7 +61,15 @@ export default function UpdateService() {
                         </div>
                       </div>
                       <div className="input">
-                        <Input />
+                        <Input
+                          value={updateService.idService}
+                          onChange={(e) =>
+                            setUpdateService({
+                              ...updateService,
+                              idService: e.target.value,
+                            })
+                          }
+                        />
                       </div>
                     </div>
                     <div className="form-item">
@@ -37,7 +80,15 @@ export default function UpdateService() {
                         </div>
                       </div>
                       <div className="input">
-                        <Input />
+                        <Input
+                          value={updateService.serviceName}
+                          onChange={(e) =>
+                            setUpdateService({
+                              ...updateService,
+                              serviceName: e.target.value,
+                            })
+                          }
+                        />
                       </div>
                     </div>
                   </Col>
@@ -50,6 +101,13 @@ export default function UpdateService() {
                         <Input.TextArea
                           className="input-area"
                           style={{ resize: "none" }}
+                          value={updateService.description}
+                          onChange={(e) =>
+                            setUpdateService({
+                              ...updateService,
+                              description: e.target.value,
+                            })
+                          }
                         />
                       </div>
                     </div>
@@ -203,7 +261,10 @@ export default function UpdateService() {
               >
                 Huỷ bỏ
               </Button>
-              <Button className="btn-add" onClick={() => navigate("/service")}>
+              <Button
+                className="btn-add"
+                onClick={handleOnClickUpdateItemService}
+              >
                 Cập nhật
               </Button>
             </Space>

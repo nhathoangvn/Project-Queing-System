@@ -52,8 +52,14 @@ function App() {
             <Route path="/service" element={<SeriviceOutlet />}>
               <Route path="/service" element={<Service />} />
               <Route path="/service/create" element={<CreateService />} />
-              <Route path="/service/details" element={<DetailsService />} />
-              <Route path="/service/update" element={<UpdateService />} />
+              <Route
+                path="/service/details/:serviceID"
+                element={<DetailsService />}
+              />
+              <Route
+                path="/service/update/:serviceID"
+                element={<UpdateService />}
+              />
             </Route>
             <Route path="/provide-number" element={<ProviderNumberOutlet />}>
               <Route path="/provide-number" element={<ProvideNumber />} />
@@ -62,13 +68,16 @@ function App() {
                 element={<CreateProvideNumber />}
               />
               <Route
-                path="/provide-number/details"
+                path="/provide-number/details/:numberID"
                 element={<DetailsProvideNumber />}
               />
             </Route>
             <Route path="/manage-role" element={<ManageRole />} />
             <Route path="/manage-role/create" element={<CreateRole />} />
-            <Route path="/manage-role/update" element={<UpdateManageRole />} />
+            <Route
+              path="/manage-role/update/:roleID"
+              element={<UpdateManageRole />}
+            />
             <Route path="/manage-account" element={<ManageAccount />} />
             <Route
               path="/manage-account/create"

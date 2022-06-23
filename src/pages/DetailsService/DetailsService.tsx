@@ -1,5 +1,5 @@
 import { Badge, Col, DatePicker, Input, Row, Select, Table } from "antd";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   AiFillCaretDown,
   AiFillCaretLeft,
@@ -8,15 +8,30 @@ import {
 import { BiCalendar, BiSearch } from "react-icons/bi";
 import { FaPen } from "react-icons/fa";
 import { RiArrowGoBackFill } from "react-icons/ri";
-import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { bindActionCreators } from "redux";
+import { dichVuCreator, state } from "../../redux";
 import "./DetailsService.scss";
 type typeStatus = "daThucHien" | "daHoanThanh" | "vang";
 interface IDetailsService {
   number: string;
   status: typeStatus;
 }
+type MyParams = {
+  serviceID: string;
+};
 export default function DetailsService() {
   const navigate = useNavigate();
+  const { serviceID } = useParams<keyof MyParams>() as MyParams;
+  const dispatch = useDispatch();
+  const { selectedItem } = bindActionCreators(dichVuCreator, dispatch);
+  useEffect(() => {
+    selectedItem(serviceID);
+  }, [serviceID]);
+  const { dichVuSelected } = useSelector((state: state) => state.dichvu);
+
   const renderStatus = (status: typeStatus) => {
     switch (status) {
       case "daHoanThanh":
@@ -159,19 +174,19 @@ export default function DetailsService() {
                   <span>Mã dịch vụ:</span>
                 </Col>
                 <Col span={16} className="content-init">
-                  <span>201</span>
+                  <span>{dichVuSelected.idService}</span>
                 </Col>
                 <Col span={8} className="content-label">
                   <span>Tên dịch vụ:</span>
                 </Col>
                 <Col span={16} className="content-init">
-                  <span>Khám tim mạch</span>
+                  <span>{dichVuSelected.serviceName}</span>
                 </Col>
                 <Col span={8} className="content-label">
                   <span>Mô tả:</span>
                 </Col>
                 <Col span={16} className="content-init">
-                  <span>Chuyên các bệnh lý vè tim</span>
+                  <span>{dichVuSelected.description}</span>
                 </Col>
               </Row>
             </div>
@@ -303,7 +318,7 @@ export default function DetailsService() {
           <div className="details-service-container-right">
             <div
               className="container-add"
-              onClick={() => navigate("/service/update")}
+              onClick={() => navigate(`/service/update/${serviceID}`)}
             >
               <Row justify="center" align="middle" className="container-add">
                 <Row justify="center" align="middle" className="around-icon">

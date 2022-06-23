@@ -4,6 +4,12 @@ const initialState = {
   thietBiData: {},
   thietBiList: [],
   thietBiInfo: {},
+  thietBiFilter: [],
+  filter: {
+    searchText: "",
+    statusWork: "tatCa",
+    statusConnection: "tatCa",
+  },
 };
 const thietBiReducer = (state: any = initialState, action: thietBiAction) => {
   switch (action.type) {
@@ -24,6 +30,33 @@ const thietBiReducer = (state: any = initialState, action: thietBiAction) => {
     }
     case "ADD_ITEM": {
       return { ...state };
+    }
+    case "FILTER_ONCHANGE": {
+      return {
+        ...state,
+        filter: {
+          ...state.filter,
+          searchText: action.payload,
+        },
+      };
+    }
+    case "STATUSWORK_FILTER_CHANGE": {
+      return {
+        ...state,
+        filter: {
+          ...state.filter,
+          statusWork: action.payload,
+        },
+      };
+    }
+    case "STATUSCONNECTION_FILTER_CHANGE": {
+      return {
+        ...state,
+        filter: {
+          ...state.filter,
+          statusConnection: action.payload,
+        },
+      };
     }
     default:
       return state;

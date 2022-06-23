@@ -1,9 +1,25 @@
 import { Button, Checkbox, Col, Input, Row, Space } from "antd";
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { bindActionCreators } from "redux";
+import { dichVuCreator } from "../../redux";
+import { IService } from "../../types/TypeService";
 import "./CreateService.scss";
 export default function CreateService() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [newService, setNewService] = useState<IService>({
+    idService: "",
+    description: "",
+    serviceName: "",
+    statusWork: true,
+  });
+  const { addItem } = bindActionCreators(dichVuCreator, dispatch);
+  const handleOnClickAddItemService = () => {
+    addItem(newService);
+    navigate("/service");
+  };
   return (
     <div className="create-service">
       <div className="create-service-wrapper">
@@ -27,7 +43,14 @@ export default function CreateService() {
                         </div>
                       </div>
                       <div className="input">
-                        <Input />
+                        <Input
+                          onChange={(e) =>
+                            setNewService({
+                              ...newService,
+                              idService: e.target.value,
+                            })
+                          }
+                        />
                       </div>
                     </div>
                     <div className="form-item">
@@ -38,7 +61,14 @@ export default function CreateService() {
                         </div>
                       </div>
                       <div className="input">
-                        <Input />
+                        <Input
+                          onChange={(e) =>
+                            setNewService({
+                              ...newService,
+                              serviceName: e.target.value,
+                            })
+                          }
+                        />
                       </div>
                     </div>
                   </Col>
@@ -51,6 +81,12 @@ export default function CreateService() {
                         <Input.TextArea
                           className="input-area"
                           style={{ resize: "none" }}
+                          onChange={(e) =>
+                            setNewService({
+                              ...newService,
+                              description: e.target.value,
+                            })
+                          }
                         />
                       </div>
                     </div>
@@ -204,7 +240,7 @@ export default function CreateService() {
               >
                 Huỷ bỏ
               </Button>
-              <Button className="btn-add" onClick={() => navigate("/service")}>
+              <Button className="btn-add" onClick={handleOnClickAddItemService}>
                 Thêm dịch vụ
               </Button>
             </Space>

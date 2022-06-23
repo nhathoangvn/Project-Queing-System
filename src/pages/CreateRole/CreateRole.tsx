@@ -1,9 +1,29 @@
 import { Button, Checkbox, Input, Row, Space } from "antd";
-import React from "react";
+import React, { ChangeEvent, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { bindActionCreators } from "redux";
+import { vaiTroCreator } from "../../redux";
 import "./CreateRole.scss";
 export default function CreateRole() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [role, setRole] = useState("");
+  const [description, setDescription] = useState("");
+  const { addItem } = bindActionCreators(vaiTroCreator, dispatch);
+  const handleOnClickCreateRole = () => {
+    addItem({
+      role: role,
+      description: description,
+    });
+    navigate("/manage-role");
+  };
+  const handleOnChangeRole = (e: ChangeEvent<HTMLInputElement>) => {
+    setRole(e.target.value);
+  };
+  const handleOnChangeDescription = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setDescription(e.target.value);
+  };
   return (
     <div className="create-role">
       <div className="create-role-wrapper">
@@ -23,8 +43,10 @@ export default function CreateRole() {
                   </span>
                   <div style={{ margin: "8px 0 8px 0" }}>
                     <Input
+                      value={role}
                       placeholder="Nhập tên vai trò"
                       className="create-role-content-form-item-left-input"
+                      onChange={(e) => handleOnChangeRole(e)}
                     />
                   </div>
                 </div>
@@ -34,6 +56,8 @@ export default function CreateRole() {
                   </span>
                   <div style={{ margin: "8px 0 8px 0" }}>
                     <Input.TextArea
+                      value={description}
+                      onChange={(e) => handleOnChangeDescription(e)}
                       placeholder="Nhập mô tả"
                       style={{ resize: "none" }}
                       className="create-role-content-form-item-left-input-area"
@@ -106,10 +130,7 @@ export default function CreateRole() {
               >
                 Huỷ bỏ
               </Button>
-              <Button
-                className="btn-add"
-                onClick={() => navigate("/manage-role")}
-              >
+              <Button className="btn-add" onClick={handleOnClickCreateRole}>
                 Thêm
               </Button>
             </Space>

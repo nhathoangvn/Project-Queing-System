@@ -72,7 +72,7 @@ export default function UpdateManageAccount() {
                       defaultValue="Quản lý"
                     >
                       <Select.Option value="Quản lý">Quản lý</Select.Option>
-                      <Select.Option value="Kế toán">Kết toán</Select.Option>
+                      <Select.Option value="Kế toán">Kế toán</Select.Option>
                       <Select.Option value="Admin">Admin</Select.Option>
                     </Select>
                   </Col>

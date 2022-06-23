@@ -8,7 +8,7 @@ import {
   Select,
   Table,
 } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiFillCaretLeft, AiFillCaretRight } from "react-icons/ai";
 import { BiCalendar } from "react-icons/bi";
 import { FaFileDownload } from "react-icons/fa";
@@ -16,6 +16,11 @@ import data from "./dataReport.json";
 import { TiArrowUnsorted } from "react-icons/ti";
 import "./Report.scss";
 import { ColumnType } from "antd/lib/table";
+import { bindActionCreators } from "redux";
+import { capSoCreator } from "../../redux";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { capSoListSelector } from "../../redux/selectors/capSoSelector";
 interface IDataType {
   number: string;
   serviceName: string;
@@ -25,7 +30,12 @@ interface IDataType {
 }
 export default function Report() {
   type dataIndex = keyof IDataType;
-
+  const dispatch = useDispatch();
+  const { loadData } = bindActionCreators(capSoCreator, dispatch);
+  const capSoList = useSelector(capSoListSelector);
+  useEffect(() => {
+    loadData();
+  }, []);
   const getColumnFilterProps = (
     dataIndex: dataIndex
   ): ColumnType<IDataType> => ({
@@ -121,7 +131,7 @@ export default function Report() {
     },
     {
       title: "Thời gian cấp",
-      dataIndex: "time",
+      dataIndex: "createdAt",
       width: 238,
       render: (time: string) => <Row align="middle">{time}</Row>,
     },
@@ -193,7 +203,7 @@ export default function Report() {
             <div className="report-content-table">
               <Table
                 columns={columns}
-                dataSource={data}
+                dataSource={capSoList}
                 pagination={{ pageSize: 10, itemRender: itemPagination }}
               />
             </div>

@@ -25,10 +25,25 @@ type checkEmail = {
   type: "CHECK_MAIL";
   payload: any;
 };
+type filterByRole = {
+  type: "FILTER_BY_ROLE";
+  payload: any;
+};
+type filterBySearchText = {
+  type: "FILTER_BY_SEARCHTEXT";
+  payload: any;
+};
+type updateAccount = {
+  type: "UPDATE_ACCOUNT";
+  payload: any;
+};
 export type taiKhoanAction =
   | loadData
   | updateData
   | getData
   | login
   | checkEmail
-  | signin;
+  | signin
+  | filterByRole
+  | filterBySearchText
+  | updateAccount;

@@ -1,8 +1,41 @@
 import { Button, Checkbox, Input, Row, Space } from "antd";
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { ChangeEvent, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { bindActionCreators } from "redux";
+import { state, vaiTroCreator } from "../../redux";
+type MyParams = {
+  roleID: string;
+};
 export default function UpdateManageRole() {
   const navigate = useNavigate();
+  const { roleID } = useParams<keyof MyParams>() as MyParams;
+  const dispatch = useDispatch();
+  const { selectedItem, updateItem } = bindActionCreators(
+    vaiTroCreator,
+    dispatch
+  );
+  useEffect(() => {
+    selectedItem(roleID);
+  }, [roleID]);
+  const { vaiTroSelected } = useSelector((state: state) => state.vaitro);
+  const [role, setRole] = useState("");
+  const [description, setDescription] = useState("");
+  useEffect(() => {
+    setRole(vaiTroSelected.role);
+    setDescription(vaiTroSelected.description);
+  }, [vaiTroSelected]);
+  const handleOnChangeRole = (e: ChangeEvent<HTMLInputElement>) => {
+    setRole(e.target.value);
+  };
+  const handleOnChangeDescription = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setDescription(e.target.value);
+  };
+  const handleOnClickUpdateRole = () => {
+    updateItem(roleID, { role: role, description: description });
+    navigate("/manage-role");
+  };
   return (
     <div className="create-role">
       <div className="create-role-wrapper">
@@ -22,9 +55,10 @@ export default function UpdateManageRole() {
                   </span>
                   <div style={{ margin: "8px 0 8px 0" }}>
                     <Input
-                      value="Kế toán"
+                      value={role}
                       placeholder="Nhập tên vai trò"
                       className="create-role-content-form-item-left-input"
+                      onChange={(e) => handleOnChangeRole(e)}
                     />
                   </div>
                 </div>
@@ -34,10 +68,11 @@ export default function UpdateManageRole() {
                   </span>
                   <div style={{ margin: "8px 0 8px 0" }}>
                     <Input.TextArea
-                      value="Chịu trách nhiệm thống kê số liệu và kiểm toán"
+                      value={description}
                       placeholder="Nhập mô tả"
                       style={{ resize: "none" }}
                       className="create-role-content-form-item-left-input-area"
+                      onChange={(e) => handleOnChangeDescription(e)}
                     />
                   </div>
                 </div>
@@ -107,11 +142,8 @@ export default function UpdateManageRole() {
               >
                 Huỷ bỏ
               </Button>
-              <Button
-                className="btn-add"
-                onClick={() => navigate("/manage-role")}
-              >
-                Thêm
+              <Button className="btn-add" onClick={handleOnClickUpdateRole}>
+                Cập nhật
               </Button>
             </Space>
           </Row>

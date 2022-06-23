@@ -1,5 +1,5 @@
 import { Badge, Input, Row, Select, Table } from "antd";
-import React from "react";
+import { ChangeEvent, useEffect } from "react";
 import {
   AiFillCaretDown,
   AiFillCaretLeft,
@@ -7,27 +7,46 @@ import {
   AiFillPlusSquare,
 } from "react-icons/ai";
 import { BiSearch } from "react-icons/bi";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import data from "./dataManageAccount.json";
+import { bindActionCreators } from "redux";
+import { state, taikhoanCreator } from "../../redux";
+import { taiKhoanListRemainingSelector } from "../../redux/selectors/taiKhoanSelector";
 import "./ManageAccount.scss";
 export default function ManageAccount() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { loadData, filterByRole, filterBySearchText } = bindActionCreators(
+    taikhoanCreator,
+    dispatch
+  );
+  useEffect(() => {
+    loadData();
+  }, []);
+  // const { taiKhoanList } = useSelector((state: state) => state.taikhoan);
+  const taiKhoanList = useSelector(taiKhoanListRemainingSelector);
+  const handleOnChangeRole = (value: any) => {
+    filterByRole(value);
+  };
+  const handleOnChangeSearchText = (e: ChangeEvent<HTMLInputElement>) => {
+    filterBySearchText(e.target.value);
+  };
   const columns = [
     {
       title: "Tên đăng nhập",
-      dataIndex: "username",
+      dataIndex: "tendangnhap",
       width: 150,
       render: (username: string) => <Row align="middle">{username}</Row>,
     },
     {
       title: "Họ tên",
-      dataIndex: "fullname",
+      dataIndex: "hoten",
       width: 166,
       render: (fullname: string) => <Row align="middle">{fullname}</Row>,
     },
     {
       title: "Số điện thoại",
-      dataIndex: "phonenumber",
+      dataIndex: "sodienthoai",
       width: 150,
       render: (phonenumber: string) => <Row align="middle">{phonenumber}</Row>,
     },
@@ -39,13 +58,13 @@ export default function ManageAccount() {
     },
     {
       title: "Vai trò",
-      dataIndex: "role",
+      dataIndex: "vaitro",
       width: 150,
       render: (role: string) => <Row align="middle">{role}</Row>,
     },
     {
       title: "Trạng thái hoạt động",
-      dataIndex: "status",
+      dataIndex: "hoatdong",
       width: 166,
       render: (status: boolean) => (
         <Row align="middle">
@@ -101,10 +120,12 @@ export default function ManageAccount() {
                 <Select
                   className="filter-select"
                   suffixIcon={<AiFillCaretDown size={20} />}
-                  defaultValue="Quản lý"
+                  defaultValue="tatCa"
+                  onChange={(value) => handleOnChangeRole(value)}
                 >
+                  <Select.Option value="tatCa">Tất cả</Select.Option>
                   <Select.Option value="Quản lý">Quản lý</Select.Option>
-                  <Select.Option value="Kế toán">Kết toán</Select.Option>
+                  <Select.Option value="Kế toán">Kế toán</Select.Option>
                   <Select.Option value="Admin">Admin</Select.Option>
                 </Select>
               </div>
@@ -113,6 +134,7 @@ export default function ManageAccount() {
               <span>Từ khoá</span>
               <div>
                 <Input
+                  onChange={(e) => handleOnChangeSearchText(e)}
                   className="filter-input"
                   suffix={<BiSearch color="#FF7506" size={20} />}
                 />
@@ -123,7 +145,7 @@ export default function ManageAccount() {
             <div className="manage-account-content-form-table">
               <Table
                 columns={columns}
-                dataSource={data}
+                dataSource={taiKhoanList}
                 pagination={{ pageSize: 9, itemRender: itemPagination }}
               />
             </div>

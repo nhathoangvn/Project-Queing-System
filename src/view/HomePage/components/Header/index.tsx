@@ -27,7 +27,7 @@ const Header: React.FC = (props) => {
   const [isCheckedNotification, setIsCheckedNotification] =
     useState<boolean>(false);
   const { taiKhoanLogin } = useSelector((state: state) => state.taikhoan);
-  const { deviceID } = useParams();
+  const { deviceID, serviceID, numberID, roleID } = useParams();
   const breadcrumbItems: IBreadcrumb[] = [
     {
       pathname: "/dashboard",
@@ -58,11 +58,11 @@ const Header: React.FC = (props) => {
       title: ["Dịch vụ", "Danh sách dịch vụ", "Thêm dịch vụ"],
     },
     {
-      pathname: "/service/details",
+      pathname: `/service/details/${serviceID}`,
       title: ["Dịch vụ", "Danh sách dịch vụ", "Chi tiết"],
     },
     {
-      pathname: "/service/update",
+      pathname: `/service/update/${serviceID}`,
       title: ["Dịch vụ", "Danh sách dịch vụ", "Chi tiết", "Cập nhật"],
     },
     {
@@ -74,7 +74,7 @@ const Header: React.FC = (props) => {
       title: ["Cấp số", "Danh sách cấp số", "Cấp số"],
     },
     {
-      pathname: "/provide-number/details",
+      pathname: `/provide-number/details/${numberID}`,
       title: ["Cấp số", "Danh sách cấp số", "Chi tiết"],
     },
     {
@@ -90,7 +90,7 @@ const Header: React.FC = (props) => {
       title: ["Cài đặt hệ thống", "Quản lý vai trò", "Thêm vai trò"],
     },
     {
-      pathname: "/manage-role/update",
+      pathname: `/manage-role/update/${roleID}`,
       title: ["Cài đặt hệ thống", "Quản lý vai trò", "Thêm vai trò"],
     },
     {

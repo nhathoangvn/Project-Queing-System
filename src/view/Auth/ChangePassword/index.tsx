@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { Button, Col, Form, Input, Row, Space } from "antd";
 import logoAlta from "../../../shared/assets/images/logoAlta.png";
 import banner from "../../../shared/assets/images/banner-changepassword.png";
@@ -7,14 +7,27 @@ import { useNavigate } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 import FormEmail from "./components/FormEmail";
 import FormPassword from "./components/FormPassword";
+import { bindActionCreators } from "redux";
+import { state, taikhoanCreator } from "../../../redux";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 export default function ChangePassword() {
   const navigate = useNavigate();
   const [emailChange, setEmailChange] = useState<string>("");
   const [passowrd, setPassword] = useState<string>("");
   const [rePassowrd, setRePassword] = useState<string>("");
-
   const [showFormEmail, setShowFormEmail] = useState<boolean>(true);
   const [showFormPassword, setShowFormPassword] = useState<boolean>(false);
+  const [userChange, setUserChange] = useState<any>({});
+  const dispatch = useDispatch();
+  const { loadData, updateAccount } = bindActionCreators(
+    taikhoanCreator,
+    dispatch
+  );
+  const { taiKhoanList } = useSelector((state: state) => state.taikhoan);
+  useEffect(() => {
+    loadData();
+  }, []);
   const handleOnchangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setEmailChange(e.target.value);
   };
@@ -28,11 +41,28 @@ export default function ChangePassword() {
     navigate("/login");
   };
   const handleOnClickCountinue = () => {
-    setShowFormEmail(false);
-    setShowFormPassword(true);
+    if (taiKhoanList.filter((item: any) => item.email === emailChange).length) {
+      setUserChange(
+        taiKhoanList.filter((item: any) => item.email === emailChange)
+      );
+      setShowFormEmail(false);
+      setShowFormPassword(true);
+    } else {
+    }
   };
   const handleOnClickConfirm = () => {
-    navigate("/login");
+    if (passowrd === rePassowrd) {
+      updateAccount(userChange[0].id, {
+        email: emailChange,
+        hoatdong: true,
+        hoten: userChange[0].hoten,
+        matkhau: passowrd,
+        sodienthoai: userChange[0].sodienthoai,
+        tendangnhap: userChange[0].tendangnhap,
+        vaitro: userChange[0].vaitro,
+      });
+      navigate("/login");
+    }
   };
   return (
     <div className="change-password">
