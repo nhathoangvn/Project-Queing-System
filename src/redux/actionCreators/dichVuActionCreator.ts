@@ -11,18 +11,19 @@ import { db } from "../../config/firebase";
 import { IService } from "../../types/TypeService";
 import { dichVuAction } from "../actions/dichVuAction";
 
-export const loadData = () => async (dispatch: Dispatch<dichVuAction>) => {
-  try {
-    const serviceCollectionRef = collection(db, "dichvu");
-    const data = await getDocs(serviceCollectionRef);
-    dispatch({
-      type: "LOAD_DATA",
-      payload: data,
-    });
-  } catch (error) {
-    console.log(error);
-  }
-};
+export const loadDataService =
+  () => async (dispatch: Dispatch<dichVuAction>) => {
+    try {
+      const serviceCollectionRef = collection(db, "dichvu");
+      const data = await getDocs(serviceCollectionRef);
+      dispatch({
+        type: "LOAD_DATA",
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 export const addItem =
   (service: IService) => async (dispatch: Dispatch<dichVuAction>) => {
     try {

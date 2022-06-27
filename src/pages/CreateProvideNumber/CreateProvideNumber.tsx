@@ -1,23 +1,25 @@
-import { Button, Modal, Select, Space } from "antd";
+import { Button, Form, Modal, Select, Space } from "antd";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
-import { capSoCreator, state } from "../../redux";
+import { capSoCreator, dichVuCreator, state } from "../../redux";
 import "./CreateProvideNumber.scss";
+
 export default function CreateProvideNumber() {
   const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [service, setService] = useState<string>("");
   const dispatch = useDispatch();
   const { addItem, loadData } = bindActionCreators(capSoCreator, dispatch);
+  const { loadDataService } = bindActionCreators(dichVuCreator, dispatch);
   const [number, setNumber] = useState<number>(0);
   const { capSoList } = useSelector((state: state) => state.capSo);
-
+  const [form] = Form.useForm();
   useEffect(() => {
+    loadDataService();
     loadData();
     const list = [];
     for (let i = 0; i < capSoList.length; i++) {
@@ -25,18 +27,24 @@ export default function CreateProvideNumber() {
     }
     setNumber(Math.max.apply(null, list));
   }, []);
+
   const handleOnClickShowModal = () => {
-    addItem({
-      number: number + 1,
-      fullname: "Nguyễn C",
-      source: "Kiosk",
-      status: "Đang chờ",
-      createdAt: moment(Date.now()).format("HH:mm DD/MM/YYYY"),
-      expiry: moment(Date.now()).add(7, "days").format("HH:mm DD/MM/YYYY"),
-      serviceName: service,
-    });
-    setNumber(number + 1);
-    setIsVisible(true);
+    form
+      .validateFields()
+      .then(() => {
+        addItem({
+          number: number + 1,
+          fullname: "Nguyễn C",
+          source: "Kiosk",
+          status: "Đang chờ",
+          createdAt: moment(Date.now()).format("HH:mm DD/MM/YYYY"),
+          expiry: moment(Date.now()).add(7, "days").format("HH:mm DD/MM/YYYY"),
+          serviceName: service,
+        });
+        setNumber(number + 1);
+        setIsVisible(true);
+      })
+      .catch();
   };
   const handleOnChangeSelectService = (value: string) => {
     setService(value);
@@ -61,24 +69,40 @@ export default function CreateProvideNumber() {
                 <div>
                   <div>
                     <span>Dịch vụ khách hàng lựa chọn</span>
-                    <div className="select-option">
-                      <Select
-                        placeholder="Chọn dịch vụ"
-                        suffixIcon={<AiFillCaretDown size={20} />}
-                        onChange={(value) => handleOnChangeSelectService(value)}
-                      >
-                        <Select.Option value="Khám tim">Khám tim</Select.Option>
-                        <Select.Option value="Khám sản-Phụ khoa">
-                          Khám sản - Phụ khoa
-                        </Select.Option>
-                        <Select.Option value="Khám răng hàm mặt">
-                          Khám răng hàm mặt
-                        </Select.Option>
-                        <Select.Option value="Khám tai mũi họng">
-                          Khám tai mũi họng
-                        </Select.Option>
-                      </Select>
-                    </div>
+                    <Form form={form} onFinish={handleOnClickShowModal}>
+                      <div className="select-option">
+                        <Form.Item
+                          rules={[
+                            {
+                              required: true,
+                              message: "Vui lòng chọn dịch vụ",
+                            },
+                          ]}
+                          name="serviceName"
+                        >
+                          <Select
+                            placeholder="Chọn dịch vụ"
+                            suffixIcon={<AiFillCaretDown size={20} />}
+                            onChange={(value) =>
+                              handleOnChangeSelectService(value)
+                            }
+                          >
+                            <Select.Option value="Khám tim">
+                              Khám tim
+                            </Select.Option>
+                            <Select.Option value="Khám sản-Phụ khoa">
+                              Khám sản - Phụ khoa
+                            </Select.Option>
+                            <Select.Option value="Khám răng hàm mặt">
+                              Khám răng hàm mặt
+                            </Select.Option>
+                            <Select.Option value="Khám tai mũi họng">
+                              Khám tai mũi họng
+                            </Select.Option>
+                          </Select>
+                        </Form.Item>
+                      </div>
+                    </Form>
                   </div>
                 </div>
               </div>

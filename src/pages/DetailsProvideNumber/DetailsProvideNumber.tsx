@@ -88,16 +88,20 @@ export default function DetailsProvideNumber() {
                 onClick={() => navigate("/provide-number")}
               >
                 <Row justify="center" align="middle" className="right-content">
-                  <div className="around-icon">
-                    <RiArrowGoBackFill
-                      size={20}
-                      style={{ fontWeight: "bolder", marginTop: "2px" }}
-                      color="#fff"
-                    />
-                  </div>
-                  <div>
+                  <Col span={24}>
+                    <Row justify="center" align="middle">
+                      <div className="around-icon">
+                        <RiArrowGoBackFill
+                          size={20}
+                          style={{ fontWeight: "bolder", marginTop: "2px" }}
+                          color="#fff"
+                        />
+                      </div>
+                    </Row>
+                  </Col>
+                  <Col span={24}>
                     <p>Quay lại</p>
-                  </div>
+                  </Col>
                 </Row>
               </div>
             </div>

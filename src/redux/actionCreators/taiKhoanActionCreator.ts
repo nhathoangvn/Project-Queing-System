@@ -1,6 +1,13 @@
 import { db } from "../../config/firebase";
 import { Dispatch } from "redux";
-import { collection, doc, getDocs, setDoc } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  setDoc,
+} from "firebase/firestore";
 import { taiKhoanAction } from "../actions/taiKhoanAction";
 export const loadData = () => async (dispatch: Dispatch<taiKhoanAction>) => {
   try {
@@ -78,7 +85,7 @@ export const filterByRole =
       console.log(error);
     }
   };
-export const updateAccount =
+export const updateItem =
   (id: string, account: any) => async (dispatch: Dispatch<taiKhoanAction>) => {
     try {
       const docRef = doc(db, "taikhoan", id);
@@ -86,6 +93,33 @@ export const updateAccount =
       dispatch({
         type: "UPDATE_ACCOUNT",
         payload: data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+export const addAccount =
+  (account: any) => async (dispatch: Dispatch<taiKhoanAction>) => {
+    try {
+      const accountCollectionRef = collection(db, "taikhoan");
+      const data = await addDoc(accountCollectionRef, account);
+      dispatch({
+        type: "ADD_ACCOUNT",
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+export const selectedAccount =
+  (id: string) => async (dispatch: Dispatch<taiKhoanAction>) => {
+    try {
+      const docRef = doc(db, "taikhoan", id);
+      const docSnap = await getDoc(docRef);
+      dispatch({
+        type: "SELECTED_ACCOUNT",
+        payload: docSnap.data(),
       });
     } catch (error) {
       console.log(error);

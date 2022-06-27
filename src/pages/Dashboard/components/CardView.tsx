@@ -1,5 +1,5 @@
 import { Badge, Col, Row } from "antd";
-import { CSSProperties, ReactNode } from "react";
+import React, { CSSProperties, ReactNode } from "react";
 import { AiOutlineArrowUp } from "react-icons/ai";
 import { BsCalendar } from "react-icons/bs";
 
@@ -11,6 +11,10 @@ interface ICardViewProps {
   iconArrow: ReactNode;
   contentTitle: string;
   percent: string;
+  handleOnClick: (
+    event: React.MouseEvent<HTMLDivElement>,
+    status: string
+  ) => void;
 }
 const CardView: React.FC<ICardViewProps> = ({
   icon,
@@ -20,9 +24,14 @@ const CardView: React.FC<ICardViewProps> = ({
   contentTitle,
   colorBadge,
   percent,
+  handleOnClick,
 }) => {
   return (
-    <Col className="dashboard-card-view-item" span={5}>
+    <Col
+      className="dashboard-card-view-item"
+      span={5}
+      onClick={(e) => handleOnClick(e, "")}
+    >
       <div className="content">
         <Row
           align="middle"

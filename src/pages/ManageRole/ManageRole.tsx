@@ -77,6 +77,7 @@ export default function ManageRole() {
               />
             </div>
             <div
+              style={{ cursor: "pointer" }}
               className="manage-role-action"
               onClick={() => navigate("/manage-role/create")}
             >

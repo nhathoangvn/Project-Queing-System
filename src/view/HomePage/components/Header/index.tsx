@@ -1,9 +1,13 @@
 import { Avatar, Breadcrumb, Col, Dropdown, Row } from "antd";
-import React, { useState } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
 import { BsFillBellFill } from "react-icons/bs";
+import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import { state } from "../../../../redux";
+import { bindActionCreators } from "redux";
+import { db } from "../../../../config/firebase";
+import { capSoCreator, dichVuCreator, state } from "../../../../redux";
 import avatar from "../../../../shared/assets/images/avatar.png";
 import Notification, { INotification } from "../Notification/Notification";
 import "./Header.scss";
@@ -27,7 +31,26 @@ const Header: React.FC = (props) => {
   const [isCheckedNotification, setIsCheckedNotification] =
     useState<boolean>(false);
   const { taiKhoanLogin } = useSelector((state: state) => state.taikhoan);
-  const { deviceID, serviceID, numberID, roleID } = useParams();
+  const dispatch = useDispatch();
+  const [list, setList] = useState<any>([]);
+  const { loadData } = bindActionCreators(capSoCreator, dispatch);
+  const { capSoList } = useSelector((state: state) => state.capSo);
+  const { deviceID, serviceID, numberID, roleID, accountID } = useParams();
+  useEffect(() => {
+    loadData();
+  }, []);
+  useEffect(() => {
+    const getListNotification = async () => {
+      const capSoCollectionRef = collection(db, "capso");
+      const capSo = await getDocs(capSoCollectionRef);
+      const data: any[] = capSo.docs.map((doc: any) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      setList(data);
+    };
+    getListNotification();
+  }, []);
   const breadcrumbItems: IBreadcrumb[] = [
     {
       pathname: "/dashboard",
@@ -102,7 +125,7 @@ const Header: React.FC = (props) => {
       title: ["Cài đặt hệ thống", "Quản lý tài khoản", "Thêm tài khoản"],
     },
     {
-      pathname: "/manage-account/update",
+      pathname: `/manage-account/update/${accountID}`,
       title: ["Cài đặt hệ thống", "Quản lý tài khoản", "Cập nhật tài khoản"],
     },
     {
@@ -136,65 +159,6 @@ const Header: React.FC = (props) => {
     // return locationPathname.split("/").filter((value) => value !== "");+
   };
 
-  const Notifications: INotification = {
-    notifications: [
-      {
-        fullname: "Nguyễn Thị Thuỳ Dung",
-        time: "12h30",
-        date: "31/11/2021",
-      },
-      {
-        fullname: "Nguyễn Thiên Chinh",
-        time: "12h30",
-        date: "31/11/2021",
-      },
-      {
-        fullname: "Võ Thị Kim Liên",
-        time: "12h30",
-        date: "31/11/2021",
-      },
-      {
-        fullname: "Hoàng Nguyễn Quốc Huy",
-        time: "12h30",
-        date: "31/11/2021",
-      },
-      {
-        fullname: "Võ Ngọc Lan Anh",
-        time: "12h30",
-        date: "31/11/2021",
-      },
-      {
-        fullname: "Nguyễn Thị Trúc Anh",
-        time: "12h30",
-        date: "31/11/2021",
-      },
-      {
-        fullname: "Nguyễn Trung Toàn",
-        time: "12h30",
-        date: "31/11/2021",
-      },
-      {
-        fullname: "Phạm Hồng Ngọc",
-        time: "12h30",
-        date: "31/11/2021",
-      },
-      {
-        fullname: "Hồ Trung Hiếu",
-        time: "12h30",
-        date: "31/11/2021",
-      },
-      {
-        fullname: "Hoàng Duy Phước",
-        time: "12h30",
-        date: "31/11/2021",
-      },
-      {
-        fullname: "Trương Ngọc Nguyên",
-        time: "12h30",
-        date: "31/11/2021",
-      },
-    ],
-  };
   return (
     <Row className="header">
       <Col span={17} className="header-breadcrumb">
@@ -227,9 +191,7 @@ const Header: React.FC = (props) => {
               className="header-user-notification"
             >
               <Dropdown
-                overlay={
-                  <Notification notifications={Notifications.notifications} />
-                }
+                overlay={<Notification notifications={list} />}
                 onVisibleChange={(visible) => {
                   setIsCheckedNotification(visible);
                 }}

@@ -37,6 +37,14 @@ type updateAccount = {
   type: "UPDATE_ACCOUNT";
   payload: any;
 };
+type addAccount = {
+  type: "ADD_ACCOUNT";
+  payload: any;
+};
+type selectedAccount = {
+  type: "SELECTED_ACCOUNT";
+  payload: any;
+};
 export type taiKhoanAction =
   | loadData
   | updateData
@@ -46,4 +54,6 @@ export type taiKhoanAction =
   | signin
   | filterByRole
   | filterBySearchText
-  | updateAccount;
+  | updateAccount
+  | addAccount
+  | selectedAccount;

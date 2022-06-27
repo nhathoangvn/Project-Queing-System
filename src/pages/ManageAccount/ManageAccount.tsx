@@ -8,7 +8,7 @@ import {
 } from "react-icons/ai";
 import { BiSearch } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { state, taikhoanCreator } from "../../redux";
 import { taiKhoanListRemainingSelector } from "../../redux/selectors/taiKhoanSelector";
@@ -84,16 +84,11 @@ export default function ManageAccount() {
     },
     {
       title: "",
-      dataIndex: "username",
+      dataIndex: "id",
       width: 150,
-      render: (username: string) => (
-        <Row
-          onClick={() => navigate("/manage-account/update")}
-          align="middle"
-          justify="center"
-          className="more"
-        >
-          Cập nhật
+      render: (id: string) => (
+        <Row align="middle" justify="center" className="more">
+          <Link to={`/manage-account/update/${id}`}>Cập nhật</Link>
         </Row>
       ),
     },

@@ -84,7 +84,7 @@ function App() {
               element={<CreateManageAccount />}
             />
             <Route
-              path="/manage-account/update"
+              path="/manage-account/update/:accountID"
               element={<UpdateManageAccount />}
             />
             <Route path="/dinary-user" element={<DinaryUser />} />

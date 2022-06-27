@@ -10,6 +10,12 @@
   justify-content: center;
 }
 /* more */
+.ant-select-selection-item {
+  font-weight: 600 !important;
+}
+.ant-input {
+  font-weight: 600 !important;
+}
 .more {
   text-decoration: underline;
   color: #4277ff;

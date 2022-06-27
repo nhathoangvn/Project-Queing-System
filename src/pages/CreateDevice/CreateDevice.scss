@@ -68,7 +68,6 @@
           }
         }
         .create-device-form-item-select {
-          padding: 12px 0 12px 0;
           .form-item-select {
             background-color: #ffffff;
           }
@@ -93,6 +92,9 @@
             }
           }
           .select-label {
+            .required {
+              color: red;
+            }
             span {
               font-weight: 600;
               font-size: 16px;
@@ -108,8 +110,7 @@
           .ant-select {
             width: 1104px !important;
           }
-          .ant-select-selection-overflow-item {
-          }
+
           .ant-select-selector {
             width: 1104px;
             background: #ffffff;
@@ -123,17 +124,13 @@
             background: #ffac6a;
             box-shadow: 0px 0px 6px #e7e9f2;
             border-radius: 9px;
-            .ant-select-selection-item-remove {
-            }
-            .ant-select-selection-item-content {
-            }
+
             span {
               color: white;
             }
           }
         }
         .create-device-form-item {
-          padding: 12px 0 12px 0;
           span {
             font-weight: 600;
             font-size: 16px;
@@ -143,6 +140,9 @@
               // color: red;
               padding-left: 3px;
             }
+          }
+          .required {
+            color: red;
           }
           p {
             padding-left: 3px;
@@ -175,8 +175,6 @@
           }
         }
       }
-    }
-    .create-device-title {
     }
   }
 }

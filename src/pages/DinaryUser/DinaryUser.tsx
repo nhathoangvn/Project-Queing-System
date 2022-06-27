@@ -1,34 +1,46 @@
 import { DatePicker, Input, Row, Table } from "antd";
-import React from "react";
+import { ChangeEvent, useEffect } from "react";
 import { AiFillCaretLeft, AiFillCaretRight } from "react-icons/ai";
 import { BiCalendar, BiSearch } from "react-icons/bi";
-import data from "./DinaryUser.json";
+import { useDispatch, useSelector } from "react-redux";
+import { bindActionCreators } from "redux";
+import { nguoiDungCreator } from "../../redux";
+import { nguoiDungRemainingSelector } from "../../redux/selectors/nguoiDungSelector";
 import "./DinaryUser.scss";
 export default function DinaryUser() {
+  const dispatch = useDispatch();
+  const { loadDataNguoiDung, filterBySearchText } = bindActionCreators(
+    nguoiDungCreator,
+    dispatch
+  );
+  const nguoiDungList = useSelector(nguoiDungRemainingSelector);
+  useEffect(() => {
+    loadDataNguoiDung();
+  }, []);
   const columns = [
     {
       title: "Tên đăng nhập",
-      dataIndex: "usename",
+      dataIndex: "username",
       width: 266,
-      render: (username: string) => <Row justify="center">{username}</Row>,
+      render: (username: string) => <Row align="middle">{username}</Row>,
     },
     {
       title: "Thời gian tác động",
       dataIndex: "time",
       width: 240,
-      render: (time: string) => <Row justify="center">{time}</Row>,
+      render: (time: string) => <Row align="middle">{time}</Row>,
     },
     {
       title: "IP thực hiện",
       dataIndex: "ip",
       width: 216,
-      render: (ip: string) => <Row justify="center">{ip}</Row>,
+      render: (ip: string) => <Row align="middle">{ip}</Row>,
     },
     {
       title: "Thao tác thực hiện",
       dataIndex: "action",
       width: 386,
-      render: (action: string) => <Row justify="center">{action}</Row>,
+      render: (action: string) => <Row align="middle">{action}</Row>,
     },
   ];
   function itemPagination(current: any, type: any, orginalElement: any) {
@@ -58,6 +70,9 @@ export default function DinaryUser() {
               <span>Từ khoá</span>
               <div>
                 <Input
+                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                    filterBySearchText(e.target.value)
+                  }
                   className="filter-input"
                   suffix={<BiSearch size={20} color="#FF7506" />}
                 />
@@ -67,7 +82,7 @@ export default function DinaryUser() {
           <div className="dinary-user-content-table">
             <Table
               columns={columns}
-              dataSource={data}
+              dataSource={nguoiDungList}
               pagination={{ pageSize: 10, itemRender: itemPagination }}
             />
           </div>

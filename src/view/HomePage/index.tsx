@@ -22,7 +22,9 @@ export default function HomePage() {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("currentUser");
   };
-
+  if (!localStorage.getItem("currentUser")) {
+    window.location.replace("/login");
+  }
   return (
     <div className="main-layout">
       <div className="main">

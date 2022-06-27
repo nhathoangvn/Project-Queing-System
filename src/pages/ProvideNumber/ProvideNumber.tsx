@@ -11,7 +11,7 @@ import { BsFillPlusSquareFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
-import { capSoCreator } from "../../redux";
+import { capSoCreator, state } from "../../redux";
 import { capSoRemainingSelector } from "../../redux/selectors/capSoSelector";
 import "./ProvideNumber.scss";
 
@@ -27,7 +27,6 @@ export default function ProvideNumber() {
     filterBySource,
   } = bindActionCreators(capSoCreator, dispatch);
   const capSoList = useSelector(capSoRemainingSelector);
-
   //Load data từ firebase
   useEffect(() => {
     loadData();

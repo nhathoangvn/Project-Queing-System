@@ -1,6 +1,10 @@
 import { Badge, Col, DatePicker, Input, Row, Select, Table } from "antd";
 import { ChangeEvent, useEffect, useState } from "react";
-import { AiFillCaretLeft, AiFillCaretRight } from "react-icons/ai";
+import {
+  AiFillCaretDown,
+  AiFillCaretLeft,
+  AiFillCaretRight,
+} from "react-icons/ai";
 import { BiCalendar, BiSearch } from "react-icons/bi";
 import { BsPlusSquareFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,13 +22,13 @@ export default function Service() {
   const location = useLocation();
   const [searchText, setSearchText] = useState("");
   const [statusWorks, setStatusWorks] = useState<any>("tatCa");
-  const { loadData, filterOnChange, statusWork } = bindActionCreators(
+  const { loadDataService, filterOnChange, statusWork } = bindActionCreators(
     dichVuCreator,
     dispatch
   );
   const dichVuList = useSelector(dichVuRemainingSelector);
   useEffect(() => {
-    loadData();
+    loadDataService();
   }, [location.pathname]);
   const handleOnchangeSearchText = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchText(e.target.value);
@@ -125,6 +129,7 @@ export default function Service() {
                     <Select
                       defaultValue="tatCa"
                       onChange={(value) => handleOnChangeStatusWork(value)}
+                      suffixIcon={<AiFillCaretDown size={20} />}
                     >
                       <Select.Option value="tatCa">Tất cả</Select.Option>
                       <Select.Option value={true}>Hoạt động</Select.Option>

@@ -20,7 +20,7 @@ export default function ChangePassword() {
   const [showFormPassword, setShowFormPassword] = useState<boolean>(false);
   const [userChange, setUserChange] = useState<any>({});
   const dispatch = useDispatch();
-  const { loadData, updateAccount } = bindActionCreators(
+  const { loadData, updateItem } = bindActionCreators(
     taikhoanCreator,
     dispatch
   );
@@ -52,7 +52,7 @@ export default function ChangePassword() {
   };
   const handleOnClickConfirm = () => {
     if (passowrd === rePassowrd) {
-      updateAccount(userChange[0].id, {
+      updateItem(userChange[0].id, {
         email: emailChange,
         hoatdong: true,
         hoten: userChange[0].hoten,

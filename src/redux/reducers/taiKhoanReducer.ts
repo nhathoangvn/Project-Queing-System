@@ -12,6 +12,7 @@ const initialState = {
   confirmEmail: false,
   taiKhoanList: [],
   taiKhoanLogin: currentUser,
+  taiKhoanSelected: {},
   filter: {
     searchText: "",
     role: "tatCa",
@@ -80,6 +81,13 @@ const taiKhoanReducer = (state: any = initialState, action: taiKhoanAction) => {
       return { ...state };
     }
     case "UPDATE_ACCOUNT": {
+      return { ...state };
+    }
+    case "ADD_ACCOUNT": {
+      return { ...state };
+    }
+    case "SELECTED_ACCOUNT": {
+      state.taiKhoanSelected = action.payload;
       return { ...state };
     }
     default:

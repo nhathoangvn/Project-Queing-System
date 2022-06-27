@@ -49,7 +49,7 @@
           .create-service-form {
             padding: 0 0 0 24px;
             .form-item {
-              padding-top: 12px;
+              // padding-top: 12px;
               .input-area {
                 width: 553px;
                 height: 132px;
@@ -71,18 +71,18 @@
               }
               .label {
                 display: flex;
-                p {
+                span {
                   font-weight: 600;
                   font-size: 16px;
                   line-height: 24px;
                   color: #282739;
                 }
-                .required {
-                  align-items: center;
-                  p {
-                    color: red;
-                  }
-                }
+                // .required {
+                //   align-items: center;
+                //   p {
+                //     color: red;
+                //   }
+                // }
               }
             }
           }

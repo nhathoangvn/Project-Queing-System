@@ -19,7 +19,7 @@ export default function DetailsDevice() {
   const { taiKhoanLogin } = useSelector((state: state) => state.taikhoan);
   useEffect(() => {
     selectedItem(deviceID);
-  }, []);
+  }, [deviceID]);
 
   return (
     <div className="details-device">
@@ -70,7 +70,7 @@ export default function DetailsDevice() {
                       <p>Tên đăng nhập:</p>
                     </Col>
                     <Col span={12} className="init-value">
-                      <p>{taiKhoanLogin[0].tendangnhap}</p>
+                      <p>{thietBiInfo.taikhoan}</p>
                     </Col>
                   </Row>
                 </Col>
@@ -90,7 +90,7 @@ export default function DetailsDevice() {
                       <p>Mật khẩu:</p>
                     </Col>
                     <Col span={12} className="init-value">
-                      <p>{taiKhoanLogin[0].matkhau}</p>
+                      <p>{thietBiInfo.matkhau}</p>
                     </Col>
                   </Row>
                 </Col>

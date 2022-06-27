@@ -13,6 +13,7 @@
       color: #ff7506;
     }
     .dashboard-card-view-item {
+      cursor: pointer;
       margin: 12px;
       width: 186px;
       height: 120px;
@@ -168,6 +169,7 @@
     .content__right-list {
       margin: 24px 0 32px 0;
       .content__right-item {
+        cursor: pointer;
         width: 353px;
         height: 83px;
         box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px;

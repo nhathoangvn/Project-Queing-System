@@ -24,7 +24,9 @@ import {
 import { RadialBar } from "@ant-design/plots";
 import { RiWechatLine } from "react-icons/ri";
 import { FiLayers } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 export default function Dashboard() {
+  const navigate = useNavigate();
   const thietBi: number = 4221;
   const thietBiHD: number = 3779;
   const thietBiNHD: number = 422;
@@ -37,17 +39,14 @@ export default function Dashboard() {
   const capSoDangCho = 486;
   const capSoBoQua = 32;
 
-  //calculate device percentage
   const maxAngleThietBi = (thietBiHD / thietBi) * 360;
   const ngungHD = (thietBiNHD / thietBi) * 360;
   const maxAngleThietBiPhanTram = (thietBiHD / thietBi) * 100;
 
-  //Calculate service percentage
   const maxAngleDichVu = (dichVuHD / dichVu) * 360;
   const ngungHDDichVu = (dichVuNHD / dichVu) * 360;
   const maxAngleDichVuPhanTram = (dichVuHD / dichVu) * 100;
 
-  //Calculate the percentage of the number
   const maxAngleCapSo = (capSoDaSD / capSo) * 360;
   const dangChoCapSo = (capSoDangCho / capSo) * 360;
   const boQuaCapSo = (capSoBoQua / capSo) * 360;
@@ -281,6 +280,7 @@ export default function Dashboard() {
                 color: "#ff9138",
                 borderRadius: "8px",
               }}
+              handleOnClick={(e) => navigate("/provide-number")}
             />
             <CardView
               number="3.721"
@@ -294,6 +294,7 @@ export default function Dashboard() {
                 color: "#E73F3F",
                 borderRadius: "8px",
               }}
+              handleOnClick={(e) => navigate("/provide-number")}
             />
             <CardView
               number="468"
@@ -307,6 +308,7 @@ export default function Dashboard() {
                 color: "#ff9138",
                 borderRadius: "8px",
               }}
+              handleOnClick={(e) => navigate("/provide-number")}
             />
             <CardView
               number="32"
@@ -322,6 +324,7 @@ export default function Dashboard() {
                 color: "#E73F3F",
                 borderRadius: "8px",
               }}
+              handleOnClick={(e) => navigate("/provide-number")}
             />
           </Row>
           <Row className="dashboard-statistic">
@@ -386,7 +389,10 @@ export default function Dashboard() {
           <div className="dashboard-overview">
             <div className="title">Tổng quan</div>
             <Row justify="center" className="content__right-list">
-              <div className="content__right-item">
+              <div
+                className="content__right-item"
+                onClick={() => navigate("/device")}
+              >
                 <div className="item__left">
                   <RadialBar {...configThietbi} />
                   <div className="item__number">
@@ -421,7 +427,10 @@ export default function Dashboard() {
                   </div>
                 </div>
               </div>
-              <div className="content__right-item">
+              <div
+                className="content__right-item"
+                onClick={() => navigate("/service")}
+              >
                 <div className="item__left">
                   <RadialBar {...configDichVu} />
                   <div className="item__number">
@@ -456,7 +465,10 @@ export default function Dashboard() {
                   </div>
                 </div>
               </div>
-              <div className="content__right-item">
+              <div
+                className="content__right-item"
+                onClick={() => navigate("/provide-number")}
+              >
                 <div className="item__left">
                   <RadialBar {...configCapSo} />
                   <div className="item__number">

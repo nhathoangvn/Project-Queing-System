@@ -2,7 +2,7 @@ import { InfoCircleOutlined } from "@ant-design/icons";
 import { Col, Form, Input, Row } from "antd";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { state, taikhoanCreator } from "../../../redux";
 import banner from "../../../shared/assets/images/banner.png";
@@ -39,7 +39,7 @@ const Login: React.FC<ILoginPageProps> = (props) => {
           window.location.href = "/dashboard";
         }
       })
-      .catch((error) => setCheckAuth(false));
+      .catch(() => setCheckAuth(false));
   };
   const handleOnChangeUsername = (e: ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value);
@@ -49,6 +49,9 @@ const Login: React.FC<ILoginPageProps> = (props) => {
     setPassword(e.target.value);
     setCheckAuth(true);
   };
+  if (localStorage.getItem("currentUser")) {
+    <Navigate to={`/dashboard`} replace={true} />;
+  }
   return (
     <div className="login">
       <Row className="wrapper">
