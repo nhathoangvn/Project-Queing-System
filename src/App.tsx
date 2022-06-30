@@ -34,6 +34,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<Navigate to="/dashboard" />} />
           <Route path="/" element={<HomePage />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/device" element={<DeviceOutlet />}>

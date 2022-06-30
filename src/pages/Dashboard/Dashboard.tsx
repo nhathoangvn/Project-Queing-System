@@ -1,32 +1,36 @@
+import { RadialBar } from "@ant-design/plots";
 import { Badge, Col, Row, Select, Typography } from "antd";
-import React, { useState } from "react";
-import { BsCalendar, BsCalendarCheck, BsBookmarkStar } from "react-icons/bs";
-import {
-  AiOutlineArrowUp,
-  AiOutlineArrowDown,
-  AiFillCaretDown,
-} from "react-icons/ai";
-import { CgDesktop, CgUser } from "react-icons/cg";
-import { Doughnut } from "react-chartjs-2";
-import "./Dashboard.scss";
-import CardView from "./components/CardView";
-import { HiOutlineDesktopComputer } from "react-icons/hi";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import {
+  AiFillCaretDown,
+  AiOutlineArrowDown,
+  AiOutlineArrowUp,
+} from "react-icons/ai";
+import { BsBookmarkStar, BsCalendar, BsCalendarCheck } from "react-icons/bs";
+import { CgUser } from "react-icons/cg";
+import { FiLayers } from "react-icons/fi";
+import { HiOutlineDesktopComputer } from "react-icons/hi";
+import { RiWechatLine } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 import {
   Area,
   AreaChart,
   CartesianGrid,
+  Tooltip,
   XAxis,
   YAxis,
-  Tooltip,
 } from "recharts";
-import { RadialBar } from "@ant-design/plots";
-import { RiWechatLine } from "react-icons/ri";
-import { FiLayers } from "react-icons/fi";
-import { useNavigate } from "react-router-dom";
+import date from "./Dashboard-Date.json";
+import week from "./Dashboard-Week.json";
+import month from "./Dashboard-Month.json";
+import CardView from "./components/CardView";
+import "./Dashboard.scss";
+import { useState } from "react";
 export default function Dashboard() {
   const navigate = useNavigate();
+  const [selectOnChange, setSelectOnChange] = useState("ngày");
+
   const thietBi: number = 4221;
   const thietBiHD: number = 3779;
   const thietBiNHD: number = 422;
@@ -51,77 +55,6 @@ export default function Dashboard() {
   const dangChoCapSo = (capSoDangCho / capSo) * 360;
   const boQuaCapSo = (capSoBoQua / capSo) * 360;
   const maxAngleCapSoPhanTram = (capSoDaSD / capSo) * 100;
-
-  const data = [
-    {
-      timePeriod: "01",
-      value: 2600,
-    },
-    {
-      timePeriod: "02",
-      value: 3501,
-    },
-    {
-      timePeriod: "03",
-      value: 4201,
-    },
-    {
-      timePeriod: "04",
-      value: 4520,
-    },
-    {
-      timePeriod: "05",
-      value: 4201,
-    },
-    {
-      timePeriod: "06",
-      value: 3501,
-    },
-    {
-      timePeriod: "07",
-      value: 2700,
-    },
-    {
-      timePeriod: "08",
-      value: 2000,
-    },
-    {
-      timePeriod: "09",
-      value: 1500,
-    },
-    {
-      timePeriod: "10",
-      value: 2000,
-    },
-    {
-      timePeriod: "11",
-      value: 2700,
-    },
-    {
-      timePeriod: "12",
-      value: 3225,
-    },
-    {
-      timePeriod: "13",
-      value: 3425,
-    },
-    {
-      timePeriod: "14",
-      value: 3200,
-    },
-    {
-      timePeriod: "15",
-      value: 2800,
-    },
-    {
-      timePeriod: "19",
-      value: 4221,
-    },
-    {
-      timePeriod: "31",
-      value: 3258,
-    },
-  ];
   const dataThietBi = [
     {
       name: "",
@@ -262,6 +195,21 @@ export default function Dashboard() {
       },
     ],
   };
+  const onChangeDataChart = (type: string) => {
+    switch (type) {
+      case "ngày": {
+        return date;
+      }
+      case "tuần": {
+        return week;
+      }
+      case "tháng": {
+        return month;
+      }
+      default:
+        return date;
+    }
+  };
   return (
     <div className="dashboard">
       <Row>
@@ -332,7 +280,7 @@ export default function Dashboard() {
               <Row>
                 <Col className="dashboard-chart-content" span={12}>
                   <Typography className="title">
-                    Bảng thống kê theo ngày
+                    {`Bảng thống kê theo ${selectOnChange}`}
                   </Typography>
                   <Typography className="description">Tháng 11/2021</Typography>
                 </Col>
@@ -345,13 +293,14 @@ export default function Dashboard() {
                     <Typography className="label">Xem theo</Typography>
                     <Select
                       size="large"
-                      defaultValue="day"
+                      value={selectOnChange}
+                      onChange={(value) => setSelectOnChange(value)}
                       className="dashboard-chart-filter-select"
                       suffixIcon={<AiFillCaretDown size={20} />}
                     >
-                      <Select.Option value="day">Ngày</Select.Option>
-                      <Select.Option value="week">Tuần</Select.Option>
-                      <Select.Option value="month">Tháng</Select.Option>
+                      <Select.Option value="ngày">Ngày</Select.Option>
+                      <Select.Option value="tuần">Tuần</Select.Option>
+                      <Select.Option value="tháng">Tháng</Select.Option>
                     </Select>
                   </Row>
                 </Col>
@@ -361,7 +310,7 @@ export default function Dashboard() {
               <AreaChart
                 width={800}
                 height={345}
-                data={data}
+                data={onChangeDataChart(selectOnChange)}
                 margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
               >
                 <defs>

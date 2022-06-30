@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
-import { Button, Col, Form, Input, Row, Space } from "antd";
+import { Alert, Button, Col, Form, Input, Row, Space } from "antd";
 import logoAlta from "../../../shared/assets/images/logoAlta.png";
 import banner from "../../../shared/assets/images/banner-changepassword.png";
 import "./ChangePassword.scss";
@@ -19,6 +19,8 @@ export default function ChangePassword() {
   const [showFormEmail, setShowFormEmail] = useState<boolean>(true);
   const [showFormPassword, setShowFormPassword] = useState<boolean>(false);
   const [userChange, setUserChange] = useState<any>({});
+
+  const [checkEmail, setCheckEmail] = useState<boolean>(true);
   const dispatch = useDispatch();
   const { loadData, updateItem } = bindActionCreators(
     taikhoanCreator,
@@ -41,13 +43,17 @@ export default function ChangePassword() {
     navigate("/login");
   };
   const handleOnClickCountinue = () => {
-    if (taiKhoanList.filter((item: any) => item.email === emailChange).length) {
+    if (
+      taiKhoanList.filter((item: any) => item.email === emailChange).length > 0
+    ) {
       setUserChange(
         taiKhoanList.filter((item: any) => item.email === emailChange)
       );
       setShowFormEmail(false);
       setShowFormPassword(true);
+      setCheckEmail(true);
     } else {
+      setCheckEmail(false);
     }
   };
   const handleOnClickConfirm = () => {
@@ -77,6 +83,7 @@ export default function ChangePassword() {
               onClickCancel={handleOnClickCancel}
               onClickContinue={handleOnClickCountinue}
               emailChange={emailChange}
+              checkEmail={checkEmail}
             />
           )}
 

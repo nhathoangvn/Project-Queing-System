@@ -1,26 +1,16 @@
-import {
-  Badge,
-  Checkbox,
-  DatePicker,
-  Dropdown,
-  Menu,
-  Row,
-  Select,
-  Table,
-} from "antd";
-import React, { useEffect, useState } from "react";
+import { Badge, Checkbox, DatePicker, Dropdown, Menu, Row, Table } from "antd";
+import { ColumnType } from "antd/lib/table";
+import React, { useEffect } from "react";
 import { AiFillCaretLeft, AiFillCaretRight } from "react-icons/ai";
 import { BiCalendar } from "react-icons/bi";
 import { FaFileDownload } from "react-icons/fa";
-import data from "./dataReport.json";
 import { TiArrowUnsorted } from "react-icons/ti";
-import "./Report.scss";
-import { ColumnType } from "antd/lib/table";
+import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { capSoCreator } from "../../redux";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
 import { capSoListSelector } from "../../redux/selectors/capSoSelector";
+import * as XLSX from "xlsx";
+import "./Report.scss";
 interface IDataType {
   number: string;
   serviceName: string;
@@ -207,7 +197,27 @@ export default function Report() {
                 pagination={{ pageSize: 10, itemRender: itemPagination }}
               />
             </div>
-            <div className="report-content-action-download">
+            <div
+              className="report-content-action-download"
+              style={{ cursor: "pointer" }}
+              onClick={() => {
+                const downloadExcel = () => {
+                  const workSheet = XLSX.utils.json_to_sheet(capSoList);
+                  const workBook = XLSX.utils.book_new();
+                  XLSX.utils.book_append_sheet(workBook, workSheet, "baoCao");
+                  //Buffer
+                  let buf = XLSX.write(workBook, {
+                    bookType: "xlsx",
+                    type: "buffer",
+                  });
+                  //Binary string
+                  XLSX.write(workBook, { bookType: "xlsx", type: "binary" });
+                  //Download
+                  XLSX.writeFile(workBook, "baoCaoData.xlsx");
+                };
+                downloadExcel();
+              }}
+            >
               <FaFileDownload size={20} color="#FF7506" />
               <p>Tải về</p>
             </div>

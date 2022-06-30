@@ -1,0 +1,50 @@
+[
+  {
+    "timePeriod": "01",
+    "value": 2000
+  },
+  {
+    "timePeriod": "02",
+    "value": 2250
+  },
+  {
+    "timePeriod": "03",
+    "value": 2670
+  },
+  {
+    "timePeriod": "04",
+    "value": 2780
+  },
+  {
+    "timePeriod": "05",
+    "value": 2690
+  },
+  {
+    "timePeriod": "06",
+    "value": 2800
+  },
+  {
+    "timePeriod": "07",
+    "value": 3600
+  },
+  {
+    "timePeriod": "08",
+    "value": 3200
+  },
+  {
+    "timePeriod": "09",
+    "value": 2600
+  },
+  {
+    "timePeriod": "10",
+    "value": 3450
+  },
+  {
+    "timePeriod": "11",
+    "value": 2800
+  },
+  {
+    "timePeriod": "12",
+    "value": 3825
+  }
+]

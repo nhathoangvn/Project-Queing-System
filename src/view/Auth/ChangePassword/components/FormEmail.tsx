@@ -3,12 +3,14 @@ import { Button, Form, Row, Space, Input } from "antd";
 import React, { ChangeEvent } from "react";
 interface FormEmailProps {
   emailChange: string;
+  checkEmail: boolean;
   onChangeEmail: (event: ChangeEvent<HTMLInputElement>) => void;
   onClickCancel: (event: React.MouseEvent<HTMLButtonElement>) => void;
   onClickContinue: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 const FormEmail: React.FC<FormEmailProps> = ({
   emailChange,
+  checkEmail,
   onChangeEmail,
   onClickCancel,
   onClickContinue,
@@ -25,7 +27,19 @@ const FormEmail: React.FC<FormEmailProps> = ({
         <Row justify="center" className="description">
           <span>Vui lòng nhập email để đặt lại mật khẩu của bạn *</span>
         </Row>
-        <Form.Item>
+        <Form.Item
+          help={
+            checkEmail ? (
+              ""
+            ) : (
+              <React.Fragment>
+                <span style={{ color: "red", fontWeight: 600 }}>
+                  Email không chính xác vui lòng thử lại
+                </span>
+              </React.Fragment>
+            )
+          }
+        >
           <Input
             value={emailChange}
             onChange={handleOnchangeEmail}

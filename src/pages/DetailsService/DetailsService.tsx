@@ -1,5 +1,6 @@
 import { Badge, Col, DatePicker, Input, Row, Select, Table } from "antd";
-import React, { useEffect } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
 import {
   AiFillCaretDown,
   AiFillCaretLeft,
@@ -12,47 +13,79 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { bindActionCreators } from "redux";
+import { db } from "../../config/firebase";
 import { dichVuCreator, state } from "../../redux";
 import "./DetailsService.scss";
-type typeStatus = "daThucHien" | "daHoanThanh" | "vang";
-interface IDetailsService {
-  number: string;
-  status: typeStatus;
-}
+type typeStatus = "Đã sử dụng" | "Đang chờ" | "Bỏ qua";
 type MyParams = {
   serviceID: string;
 };
 export default function DetailsService() {
   const navigate = useNavigate();
+  const [provideNumbers, setProvideNumbers] = useState<any>([]);
+  const [filterOnchange, setFilterOnchange] = useState("tatCa");
+  const [searchText, setSearchText] = useState("");
   const { serviceID } = useParams<keyof MyParams>() as MyParams;
   const dispatch = useDispatch();
   const { selectedItem } = bindActionCreators(dichVuCreator, dispatch);
+
   useEffect(() => {
     selectedItem(serviceID);
   }, [serviceID]);
+
   const { dichVuSelected } = useSelector((state: state) => state.dichvu);
+
+  useEffect(() => {
+    const getListNumber = async () => {
+      const numberCollectionRef = collection(db, "capso");
+      const docs = await getDocs(numberCollectionRef);
+      const listNumber: any[] = docs.docs.map((doc: any) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      setProvideNumbers(
+        listNumber
+          .sort((a: any, b: any) => {
+            if (a.number > b.number) return 1;
+            if (a.number < b.number) return -1;
+            return 0;
+          })
+          .filter(
+            (item: any) =>
+              item.serviceName === dichVuSelected.serviceName &&
+              (filterOnchange !== "tatCa"
+                ? item.status === filterOnchange
+                : item.serviceName === dichVuSelected.serviceName) &&
+              (searchText
+                ? item.number?.toString()?.includes(searchText)
+                : item.serviceName === dichVuSelected.serviceName)
+          )
+      );
+    };
+    getListNumber();
+  }, [dichVuSelected, filterOnchange, searchText]);
 
   const renderStatus = (status: typeStatus) => {
     switch (status) {
-      case "daHoanThanh":
+      case "Đã sử dụng":
         return (
           <>
             <Badge color="#34CD26" />
-            <span>Đã hoàn thành</span>
+            <span>Đã sử dụng</span>
           </>
         );
-      case "daThucHien":
+      case "Đang chờ":
         return (
           <>
             <Badge color="#5490EB" />
-            <span>Đã thực hiện</span>
+            <span>Đang chờ</span>
           </>
         );
-      case "vang":
+      case "Bỏ qua":
         return (
           <>
             <Badge color="#6C7585" />
-            <span>Vắng</span>
+            <span>Bỏ qua</span>
           </>
         );
       default:
@@ -75,80 +108,7 @@ export default function DetailsService() {
       ),
     },
   ];
-  const columnService: IDetailsService[] = [
-    {
-      number: "20010001",
-      status: "daHoanThanh",
-    },
-    {
-      number: "20010002",
-      status: "vang",
-    },
-    {
-      number: "20010003",
-      status: "daThucHien",
-    },
-    {
-      number: "20010004",
-      status: "daHoanThanh",
-    },
-    {
-      number: "20010005",
-      status: "vang",
-    },
-    {
-      number: "20010006",
-      status: "daHoanThanh",
-    },
-    {
-      number: "20010007",
-      status: "daThucHien",
-    },
-    {
-      number: "20010008",
-      status: "daThucHien",
-    },
-    {
-      number: "20010009",
-      status: "daHoanThanh",
-    },
-    {
-      number: "200100010",
-      status: "daHoanThanh",
-    },
-    {
-      number: "200100011",
-      status: "daHoanThanh",
-    },
-    {
-      number: "200100012",
-      status: "daHoanThanh",
-    },
-    {
-      number: "200100013",
-      status: "daThucHien",
-    },
-    {
-      number: "200100014",
-      status: "vang",
-    },
-    {
-      number: "200100015",
-      status: "daHoanThanh",
-    },
-    {
-      number: "200100016",
-      status: "vang",
-    },
-    {
-      number: "200100017",
-      status: "daThucHien",
-    },
-    {
-      number: "200100018",
-      status: "daHoanThanh",
-    },
-  ];
+
   function itemPagination(current: any, type: any, orginalElement: any) {
     if (type === "prev") {
       return <AiFillCaretLeft color="#A9A9B0" />;
@@ -265,15 +225,14 @@ export default function DetailsService() {
                       <Select
                         defaultValue="tatCa"
                         suffixIcon={<AiFillCaretDown size={20} />}
+                        onChange={(value) => setFilterOnchange(value)}
                       >
                         <Select.Option value="tatCa">Tất cả</Select.Option>
-                        <Select.Option value="daHoanThanh">
-                          Đã hoàn thành
+                        <Select.Option value="Đã sử dụng">
+                          Đã sử dụng
                         </Select.Option>
-                        <Select.Option value="daThucHien">
-                          Đã thực hiện
-                        </Select.Option>
-                        <Select.Option value="vang">Vắng</Select.Option>
+                        <Select.Option value="Đang chờ">Đang chờ</Select.Option>
+                        <Select.Option value="Bỏ qua">Bỏ qua</Select.Option>
                       </Select>
                     </div>
                   </div>
@@ -301,6 +260,8 @@ export default function DetailsService() {
                       suffix={<BiSearch size={20} />}
                       className="search-dex"
                       placeholder="Nhập từ khoá"
+                      value={searchText}
+                      onChange={(e) => setSearchText(e.target.value)}
                     />
                   </div>
                 </Col>
@@ -310,7 +271,7 @@ export default function DetailsService() {
             <div className="table-service">
               <Table
                 columns={columns}
-                dataSource={columnService}
+                dataSource={provideNumbers}
                 pagination={{ pageSize: 8, itemRender: itemPagination }}
               />
             </div>
