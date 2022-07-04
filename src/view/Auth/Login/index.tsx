@@ -2,7 +2,7 @@ import { InfoCircleOutlined } from "@ant-design/icons";
 import { Col, Form, Input, Row } from "antd";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { state, taikhoanCreator } from "../../../redux";
 import banner from "../../../shared/assets/images/banner.png";
@@ -11,20 +11,17 @@ import CButton from "../../../shared/components/Button";
 import "./Login.scss";
 interface ILoginPageProps {}
 const Login: React.FC<ILoginPageProps> = (props) => {
-  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [formLogin] = Form.useForm();
   const [checkAuth, setCheckAuth] = useState<boolean>(true);
   const dispatch = useDispatch();
-  const { loadData, signin, login } = bindActionCreators(
-    taikhoanCreator,
-    dispatch
-  );
+  const { loadData, signin } = bindActionCreators(taikhoanCreator, dispatch);
   const { taiKhoanList } = useSelector((state: state) => state.taikhoan);
   useEffect(() => {
     loadData();
   }, []);
+  console.log(taiKhoanList);
   const handleSubmitLogin = () => {
     const result = taiKhoanList.filter(
       (item: any) => item.tendangnhap === username && item.matkhau === password
@@ -121,6 +118,10 @@ const Login: React.FC<ILoginPageProps> = (props) => {
         <Col className="banner" span={14}>
           <Row className="banner-wrapper">
             <img alt="" src={banner} className="img-banner" />
+            <div className="text-banner-wrapper">
+              <span className="text-banner">Hệ thống</span>
+              <span className="text">QUẢN LÝ XẾP HÀNG</span>
+            </div>
           </Row>
         </Col>
       </Row>

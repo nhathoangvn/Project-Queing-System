@@ -18,6 +18,7 @@ const thietBiReducer = (state: any = initialState, action: thietBiAction) => {
       state.thietBiList = state.thietBiData.docs.map((doc: any) => ({
         ...doc.data(),
         id: doc.id,
+        key: doc.id,
       }));
       return { ...state };
     }

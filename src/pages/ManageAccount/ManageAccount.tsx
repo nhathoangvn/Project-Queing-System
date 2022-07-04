@@ -23,6 +23,9 @@ export default function ManageAccount() {
   useEffect(() => {
     loadData();
   }, []);
+  let locale = {
+    emptyText: "Không có dữ liệu",
+  };
   // const { taiKhoanList } = useSelector((state: state) => state.taikhoan);
   const taiKhoanList = useSelector(taiKhoanListRemainingSelector);
   const handleOnChangeRole = (value: any) => {
@@ -139,6 +142,7 @@ export default function ManageAccount() {
           <div className="manage-account-content-form">
             <div className="manage-account-content-form-table">
               <Table
+                locale={locale}
                 columns={columns}
                 dataSource={taiKhoanList}
                 pagination={{ pageSize: 9, itemRender: itemPagination }}

@@ -24,6 +24,7 @@ const taiKhoanReducer = (state: any = initialState, action: taiKhoanAction) => {
       state.taiKhoanList = action.payload.docs.map((doc: any) => ({
         ...doc.data(),
         id: doc.id,
+        key: doc.id,
       }));
 
       return { ...state };

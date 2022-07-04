@@ -17,6 +17,9 @@ export default function DinaryUser() {
   useEffect(() => {
     loadDataNguoiDung();
   }, []);
+  let locale = {
+    emptyText: "Không có dữ liệu",
+  };
   const columns = [
     {
       title: "Tên đăng nhập",
@@ -81,6 +84,7 @@ export default function DinaryUser() {
           </div>
           <div className="dinary-user-content-table">
             <Table
+              locale={locale}
               columns={columns}
               dataSource={nguoiDungList}
               pagination={{ pageSize: 10, itemRender: itemPagination }}

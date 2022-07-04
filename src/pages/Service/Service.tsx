@@ -11,10 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { dichVuCreator } from "../../redux";
-import {
-  dichVuListSelector,
-  dichVuRemainingSelector,
-} from "../../redux/selectors/dichVuSelector";
+import { dichVuRemainingSelector } from "../../redux/selectors/dichVuSelector";
 import "./Service.scss";
 export default function Service() {
   const navigate = useNavigate();
@@ -26,6 +23,9 @@ export default function Service() {
     dichVuCreator,
     dispatch
   );
+  let locale = {
+    emptyText: "Không có dữ liệu",
+  };
   const dichVuList = useSelector(dichVuRemainingSelector);
   useEffect(() => {
     loadDataService();
@@ -167,6 +167,7 @@ export default function Service() {
             <div className="service-form-container">
               <div className="service-form-left">
                 <Table
+                  locale={locale}
                   columns={columnService}
                   dataSource={dichVuList}
                   pagination={{ pageSize: 9, itemRender: itemPagination }}

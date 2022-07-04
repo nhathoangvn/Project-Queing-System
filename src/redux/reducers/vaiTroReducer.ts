@@ -13,6 +13,7 @@ const vaiTroReducer = (state: any = initialState, action: vaiTroAction) => {
       state.vaiTroList = action.payload.docs.map((doc: any) => ({
         ...doc.data(),
         id: doc.id,
+        key: doc.id,
       }));
       return { ...state };
     }

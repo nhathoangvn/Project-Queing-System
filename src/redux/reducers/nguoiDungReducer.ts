@@ -15,6 +15,7 @@ const nguoiDungReducer = (
       state.nguoiDungList = action.payload.docs.map((doc: any) => ({
         ...doc.data(),
         id: doc.id,
+        key: doc.id,
       }));
       return { ...state };
     }

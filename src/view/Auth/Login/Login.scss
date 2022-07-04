@@ -49,6 +49,28 @@
     .banner {
       .banner-wrapper {
         height: 810px;
+        .text-banner-wrapper {
+          .text-banner {
+            position: absolute;
+            top: 427px;
+            left: 447px;
+            font-weight: 400;
+            font-size: 34px;
+            line-height: 51px;
+            color: #ff7506;
+          }
+          .text {
+            font-family: "Nunito";
+            font-style: normal;
+            position: absolute;
+            top: 465px;
+            left: 447px;
+            font-weight: 900;
+            font-size: 36px;
+            line-height: 54px;
+            color: #ff7506;
+          }
+        }
         .img-banner {
           position: absolute;
           width: 605px;

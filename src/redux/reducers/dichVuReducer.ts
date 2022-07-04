@@ -14,6 +14,7 @@ const dichVuReducer = (state: any = initialState, action: dichVuAction) => {
       state.dichVuList = action.payload.docs.map((doc: any) => ({
         ...doc.data(),
         id: doc.id,
+        key: doc.id,
       }));
       return { ...state };
     }

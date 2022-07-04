@@ -20,6 +20,9 @@ export default function ManageRole() {
   useEffect(() => {
     loadData();
   }, []);
+  let locale = {
+    emptyText: "Không có dữ liệu",
+  };
   const columns = [
     {
       title: "Tên vai trò",
@@ -71,6 +74,7 @@ export default function ManageRole() {
           <div className="manage-role-content-table">
             <div className="manage-role-table">
               <Table
+                locale={locale}
                 dataSource={vaiTroList}
                 columns={columns}
                 pagination={false}

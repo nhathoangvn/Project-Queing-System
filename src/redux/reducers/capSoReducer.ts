@@ -17,6 +17,7 @@ const capSoReducer = (state: any = initialState, action: capSoAction) => {
         .map((doc: any) => ({
           ...doc.data(),
           id: doc.id,
+          key: doc.id,
         }))
         .sort((a: any, b: any) => {
           if (a.number > b.number) return 1;

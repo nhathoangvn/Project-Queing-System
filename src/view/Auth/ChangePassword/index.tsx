@@ -1,16 +1,15 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
-import { Alert, Button, Col, Form, Input, Row, Space } from "antd";
-import logoAlta from "../../../shared/assets/images/logoAlta.png";
-import banner from "../../../shared/assets/images/banner-changepassword.png";
-import "./ChangePassword.scss";
+import { Col, Row } from "antd";
+import { ChangeEvent, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
-import FormEmail from "./components/FormEmail";
-import FormPassword from "./components/FormPassword";
 import { bindActionCreators } from "redux";
 import { state, taikhoanCreator } from "../../../redux";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import banner from "../../../shared/assets/images/banner-changepassword.png";
+import logoAlta from "../../../shared/assets/images/logoAlta.png";
+import "./ChangePassword.scss";
+import FormEmail from "./components/FormEmail";
+import FormPassword from "./components/FormPassword";
 export default function ChangePassword() {
   const navigate = useNavigate();
   const [emailChange, setEmailChange] = useState<string>("");
@@ -32,6 +31,7 @@ export default function ChangePassword() {
   }, []);
   const handleOnchangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setEmailChange(e.target.value);
+    setCheckEmail(true);
   };
   const handleOnChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);

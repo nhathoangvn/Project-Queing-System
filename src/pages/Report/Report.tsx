@@ -26,6 +26,9 @@ export default function Report() {
   useEffect(() => {
     loadData();
   }, []);
+  let locale = {
+    emptyText: "Không có dữ liệu",
+  };
   const getColumnFilterProps = (
     dataIndex: dataIndex
   ): ColumnType<IDataType> => ({
@@ -192,6 +195,7 @@ export default function Report() {
           <div className="report-content-container">
             <div className="report-content-table">
               <Table
+                locale={locale}
                 columns={columns}
                 dataSource={capSoList}
                 pagination={{ pageSize: 10, itemRender: itemPagination }}

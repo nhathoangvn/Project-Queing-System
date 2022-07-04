@@ -19,6 +19,9 @@ const Option = Select.Option;
 export default function ProvideNumber() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  let locale = {
+    emptyText: "Không có dữ liệu",
+  };
   const {
     loadData,
     filterBySearchText,
@@ -213,6 +216,7 @@ export default function ProvideNumber() {
           <div className="provide-number-table-container">
             <div className="table-content">
               <Table
+                locale={locale}
                 dataSource={capSoList}
                 columns={columns}
                 pagination={{ pageSize: 9, itemRender: itemPagination }}
